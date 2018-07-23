@@ -4,7 +4,7 @@
   "description": "Sort colors by hue, then saturation.",
   "main": "color-sorter.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "xo && ava"
   },
   "repository": {
     "type": "git",
@@ -21,5 +21,15 @@
   "bugs": {
     "url": "https://github.com/bartveneman/color-sorter/issues"
   },
-  "homepage": "https://github.com/bartveneman/color-sorter#readme"
+  "homepage": "https://github.com/bartveneman/color-sorter#readme",
+  "dependencies": {
+    "tinycolor2": "^1.4.1"
+  },
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "xo": "^0.21.1"
+  },
+  "xo": {
+    "semicolon": false
+  }
 }

@@ -10,18 +10,18 @@ This sorting algorithm is very opinionated and might not fit *your* needs!
 const sortColors = require('color-sorter');
 
 const colors = [
-  { value: '#000' },
-  { value: 'red' },
-  { value: 'hsl(0, 10%, 60%)' }
+  '#000',
+  'red',
+  'hsl(0, 10%, 60%)'
 ];
 
 const sorted = sortColors(colors);
 
 // => sorted:
 // [
-//  { value: 'red' },
-//  { value: 'hsl(0, 10%, 60%)' },
-//  { value: '#000' }
+//  'red',
+//  'hsl(0, 10%, 60%)',
+//  '#000'
 // ]
 ```
 
@@ -35,16 +35,16 @@ These examples can be seen on [Project Wallace](https://projectwallace.com) wher
 
 ### Smashing Magazine
 
-![CSS Tricks color sort example](/examples/smashing-magazine.png)
+![Smashing Magazine color sort example](/examples/smashing-magazine.png)
 
 ### Bootstrap
 
-![CSS Tricks color sort example](/examples/bootstrap.png)
+![Bootstrap color sort example](/examples/bootstrap.png)
 
-### Foundation
+### Zurb Foundation
 
-![CSS Tricks color sort example](/examples/foundation.png)
+![Zurb Foundation color sort example](/examples/foundation.png)
 
 ### Project Wallace
 
-![CSS Tricks color sort example](/examples/project-wallace.png)
+![Project Wallace color sort example](/examples/project-wallace.png)
