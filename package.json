@@ -1,0 +1,25 @@
+{
+  "name": "color-sorter",
+  "version": "1.0.0",
+  "description": "Sort colors by hue, then saturation.",
+  "main": "color-sorter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bartveneman/color-sorter.git"
+  },
+  "keywords": [
+    "css",
+    "color-sorting",
+    "color-sort",
+    "colors"
+  ],
+  "author": "Bart Veneman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bartveneman/color-sorter/issues"
+  },
+  "homepage": "https://github.com/bartveneman/color-sorter#readme"
+}
