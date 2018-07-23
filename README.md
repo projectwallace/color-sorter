@@ -1,4 +1,4 @@
-# color-sorter
+# color-sorter [![Build Status](https://travis-ci.org/bartveneman/color-sorter.svg?branch=master)](https://travis-ci.org/bartveneman/color-sorter) [![Known Vulnerabilities](https://snyk.io/test/github/bartveneman/color-sorter/badge.svg)](https://snyk.io/test/github/bartveneman/color-sorter) ![Dependencies Status](https://img.shields.io/david/bartveneman/color-sorter.svg) ![Dependencies Status](https://img.shields.io/david/dev/bartveneman/color-sorter.svg)
 
 Sort CSS colors by hue, then by saturation. Black-grey-white colors (colors with 0% saturation) are shifted to the end.
 
