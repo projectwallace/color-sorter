@@ -4,7 +4,8 @@
   "description": "Sort colors by hue, then saturation.",
   "main": "color-sorter.js",
   "scripts": {
-    "test": "xo && ava"
+    "test": "xo && ava",
+    "test:watch": "ava --watch"
   },
   "repository": {
     "type": "git",
