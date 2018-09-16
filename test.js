@@ -140,7 +140,7 @@ test('Grey-ish colors with matching lightness and alpha are sorted by string len
 		'black',
 		'#000000',
 		'hsl(0,0%,0%)',
-		'rgb(0, 0, 0)',
+		'rgb(0, 0, 0)'
 	]
 	const actual = colorSort(colors)
 

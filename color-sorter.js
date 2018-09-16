@@ -12,24 +12,24 @@ const sortFn = (a, b) => {
 	const colorA = normalizeColor(a)
 	const colorB = normalizeColor(b)
 
-	if (colorA.saturation === 0) {
-		if (colorB.saturation === 0) {
-			if (colorA.alpha === colorB.alpha) {
-				if (colorA.lightness === colorB.lightness) {
-					if (a.length === b.length) {
-						return a.localeCompare(b)
-					}
+	if (colorA.saturation === 0 && colorB.saturation !== 0) {
+		return 1
+	}
 
-					return a.length - b.length
+	if (colorA.saturation === 0) {
+		if (colorA.alpha === colorB.alpha) {
+			if (colorA.lightness === colorB.lightness) {
+				if (a.length === b.length) {
+					return a.localeCompare(b)
 				}
 
-				return colorB.lightness - colorA.lightness
+				return a.length - b.length
 			}
 
-			return colorB.alpha - colorA.alpha
+			return colorB.lightness - colorA.lightness
 		}
 
-		return 1
+		return colorB.alpha - colorA.alpha
 	}
 
 	return colorA.hue - colorB.hue
