@@ -55,14 +55,14 @@ test('Colors are sorted by Hue', t => {
 
 test('Colors are sorted by Hue, then by saturation', t => {
 	const colors = [
-		'hsl(60, 50%, 50%)',
-		'hsl(60, 100%, 50%)',
-		'hsl(0, 100%, 50%)'
+		'hsl(0, 50%, 50%)',
+		'hsl(0, 100%, 50%)',
+		'hsl(0, 75%, 50%)'
 	]
 	const expected = [
-		'hsl(0, 100%, 50%)',
-		'hsl(60, 100%, 50%)',
-		'hsl(60, 50%, 50%)'
+		'hsl(0, 50%, 50%)',
+		'hsl(0, 75%, 50%)',
+		'hsl(0, 100%, 50%)'
 	]
 	const actual = colorSort(colors)
 

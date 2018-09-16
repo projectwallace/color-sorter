@@ -12,27 +12,35 @@ const sortFn = (a, b) => {
 	const colorA = normalizeColor(a)
 	const colorB = normalizeColor(b)
 
-	if (colorA.saturation === 0 && colorB.saturation !== 0) {
+	// Move grey-ish colors to the back of the list
+	if (
+		(colorA.saturation === 0 || colorB.saturation === 0) &&
+		colorA.saturation !== colorB.saturation
+	) {
 		return 1
 	}
 
-	if (colorA.saturation === 0) {
-		if (colorA.alpha === colorB.alpha) {
-			if (colorA.lightness === colorB.lightness) {
-				if (a.length === b.length) {
-					return a.localeCompare(b)
-				}
+	if (colorA.saturation !== colorB.saturation) {
+		return colorA.saturation - colorB.saturation
+	}
 
-				return a.length - b.length
-			}
+	if (colorA.hue !== colorB.hue) {
+		return colorA.hue - colorB.hue
+	}
 
-			return colorB.lightness - colorA.lightness
-		}
+	if (colorA.lightness !== colorB.lightness) {
+		return colorB.lightness - colorA.lightness
+	}
 
+	if (colorA.alpha !== colorB.alpha) {
 		return colorB.alpha - colorA.alpha
 	}
 
-	return colorA.hue - colorB.hue
+	if (a.length !== b.length) {
+		return a.length - b.length
+	}
+
+	return a.localeCompare(b)
 }
 
 module.exports = colors => colors.sort(sortFn)
