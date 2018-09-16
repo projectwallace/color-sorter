@@ -1,88 +1,48 @@
 const tinycolor = require('tinycolor2')
 
-/*
- * Sort by saturation, high to low (ASC, 100%  - 0%)
- */
-function sortBySaturation(colorA, colorB) {
-	return colorA.saturation - colorB.saturation
+function normalizeColor(color) {
+	const {h: hue, s: saturation, l: lightness, a: alpha} = tinycolor(
+		color
+	).toHsl()
+
+	return {hue, saturation, lightness, alpha}
 }
 
-/*
- * Sort by hue, red-yellow-green-blue-purple (0-360)
- */
-function sortByHue({hsl: colorA}, {hsl: colorB}) {
-	const {hue: hueA} = colorA
-	const {hue: hueB} = colorB
+const sortFn = (a, b) => {
+	const colorA = normalizeColor(a)
+	const colorB = normalizeColor(b)
 
-	// If the hues are the same, sort by saturation
-	if (hueA === hueB) {
-		return sortBySaturation(colorA, colorB)
+	// Move grey-ish colors to the back of the list
+	if (
+		(colorA.saturation === 0 || colorB.saturation === 0) &&
+		colorA.saturation !== colorB.saturation
+	) {
+		return 1
 	}
 
-	return hueA - hueB
-}
-
-/*
- * Sort by alpha channel, transparent to opaque
- */
-function sortByAlpha({hsl: colorA}, {hsl: colorB}) {
-	if (colorA.alpha === colorB.alpha) {
-		return sortByLightness(colorA, colorB)
+	if (colorA.saturation !== colorB.saturation) {
+		return colorA.saturation - colorB.saturation
 	}
 
-	return colorB.alpha - colorA.alpha
+	if (colorA.hue !== colorB.hue) {
+		return colorA.hue - colorB.hue
+	}
+
+	if (colorA.lightness !== colorB.lightness) {
+		return colorB.lightness - colorA.lightness
+	}
+
+	if (colorA.alpha !== colorB.alpha) {
+		return colorB.alpha - colorA.alpha
+	}
+
+	if (a.length !== b.length) {
+		return a.length - b.length
+	}
+
+	return a.localeCompare(b)
 }
 
-/*
- * Sort by lightness, light to dark
- */
-function sortByLightness(colorA, colorB) {
-	const {lightness: lightnessA} = colorA
-	const {lightness: lightnessB} = colorB
-
-	return lightnessB - lightnessA
-}
-
-/*
- * Determines if a given color is a pure grey
- */
-function isGrey(color) {
-	return color.hsl.saturation === 0
-}
-
-/*
- * Sort an array of CSS colors
- *
- * @param colors An array of CSS colors
- * @returns array A new sorted array
- */
-module.exports = colors => {
-	// Add an `hsl` prop to our array to use for sorting
-	const mapped = colors.map(color => {
-		const {h: hue, s: saturation, l: lightness, a: alpha} = tinycolor(
-			color
-		).toHsl()
-
-		return {
-			authored: color,
-			hsl: {hue, saturation, lightness, alpha}
-		}
-	})
-
-	return (
-		mapped
-			// Sort by hue
-			.sort(sortByHue)
-			// Remove the grey colors
-			.filter(color => !isGrey(color))
-			.concat(
-				// Shift the grey colors to the back
-				mapped
-					.filter(color => isGrey(color))
-					// And sort the greys by lightness
-					.sort(sortByAlpha)
-			)
-			// Finally, return the array in the form it was given to us
-			.map(color => color.authored)
-	)
-}
+module.exports = colors => colors.sort(sortFn)
+module.exports.sortFn = sortFn
+module.exports.normalizeColor = normalizeColor

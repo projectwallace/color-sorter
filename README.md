@@ -7,15 +7,18 @@ This sorting algorithm is very opinionated and might not fit *your* needs!
 ## Usage
 
 ```js
-const sortColors = require('color-sorter');
-
-const colors = [
+var sortColors = require('color-sorter');
+var colors = [
   '#000',
   'red',
   'hsl(0, 10%, 60%)'
 ];
 
-const sorted = sortColors(colors);
+// Method 1: wrap array in a sort function
+var sorted = sortColors(colors);
+
+// Method 2: use Array.sort with a sort function
+var sorted = colors.sort(sortColors.sortFn)
 
 // => sorted:
 // [
