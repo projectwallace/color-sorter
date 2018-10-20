@@ -46,3 +46,18 @@ These examples can be seen on [Project Wallace](https://projectwallace.com) wher
 ### Project Wallace
 
 ![Project Wallace color sort example](/examples/project-wallace.png)
+
+## Related projects
+
+- [CSS Analyzer](https://github.com/projectwallace/css-analyzer) - The analyzer
+  that powers this module
+- [Wallace](https://github.com/bartveneman/wallace-cli) - CLI tool for
+  @projectwallace/css-analyzer
+- [CSS Analyzer Diff](https://github.com/bartveneman/css-analyzer-diff) -
+  Calculates the diff between two sets of CSS analysis
+- [Gromit](https://github.com/bartveneman/gromit-cli) - A test framework to assert
+  that CSS doesn't exceeds certain thresholds
+
+## License
+
+MIT © Bart Veneman
