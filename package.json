@@ -2,6 +2,7 @@
   "name": "color-sorter",
   "version": "2.2.0",
   "description": "Sort colors by hue, then saturation.",
+  "homepage": "https://www.projectwallace.com/oss",
   "main": "color-sorter.js",
   "scripts": {
     "test": "xo && ava",
@@ -15,14 +16,16 @@
     "css",
     "color-sorting",
     "color-sort",
-    "colors"
+    "colors",
+    "statistics",
+    "stats",
+    "analytics"
   ],
   "author": "Bart Veneman",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/bartveneman/color-sorter/issues"
   },
-  "homepage": "https://github.com/bartveneman/color-sorter#readme",
   "dependencies": {
     "tinycolor2": "^1.4.1"
   },
