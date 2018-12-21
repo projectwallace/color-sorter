@@ -5,8 +5,7 @@
   "homepage": "https://www.projectwallace.com/oss",
   "main": "color-sorter.js",
   "scripts": {
-    "test": "xo && ava",
-    "test:watch": "ava --watch"
+    "test": "xo && ava"
   },
   "repository": {
     "type": "git",
