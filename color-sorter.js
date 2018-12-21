@@ -29,7 +29,10 @@ const sortFn = (a, b) => {
 	}
 
 	// Move grey-ish values to the back
-	if ((aa.saturation === 0 || bb.saturation === 0) && aa.saturation !== bb.saturation) {
+	if (
+		(aa.saturation === 0 || bb.saturation === 0) &&
+		aa.saturation !== bb.saturation
+	) {
 		return bb.saturation - aa.saturation
 	}
 
@@ -43,7 +46,7 @@ const sortFn = (a, b) => {
 		return aa.saturation - bb.saturation
 	}
 
-	// comparing grey values, light before dark
+	// Comparing grey values, light before dark
 	if (aa.saturation === 0 && bb.saturation === 0) {
 		if (aa.lightness !== bb.lightness) {
 			return bb.lightness - aa.lightness
