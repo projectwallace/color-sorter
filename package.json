@@ -31,9 +31,26 @@
   },
   "devDependencies": {
     "ava": "^0.25.0",
+    "prettier": "^1.15.3",
     "xo": "^0.23.0"
   },
   "xo": {
-    "semicolon": false
+    "semicolon": false,
+    "prettier": true
+  },
+  "prettier": {
+    "useTabs": true,
+    "semi": false,
+    "singleQuote": true,
+    "bracketSpacing": false,
+    "proseWrap": "always",
+    "overrides": [
+      {
+        "files": "*.json",
+        "options": {
+          "useTabs": false
+        }
+      }
+    ]
   }
 }

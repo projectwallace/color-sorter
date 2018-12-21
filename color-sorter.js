@@ -1,102 +1,64 @@
 const tinycolor = require('tinycolor2')
 
-/*
- * Sort by saturation, high to low (ASC, 100%  - 0%)
- */
-function sortBySaturation(colorA, colorB) {
-	return colorA.saturation - colorB.saturation
-}
+const convert = color => {
+	const {h: hue, s: saturation, l: lightness, a: alpha} = tinycolor(
+		color
+	).toHsl()
 
-/*
- * Sort by hue, red-yellow-green-blue-purple (0-360)
- */
-function sortByHue({hsl: colorA}, {hsl: colorB}) {
-	const {hue: hueA} = colorA
-	const {hue: hueB} = colorB
-
-	// If the hues are the same, sort by saturation
-	if (hueA === hueB) {
-		return sortBySaturation(colorA, colorB)
+	return {
+		hue,
+		saturation,
+		lightness,
+		alpha,
+		authored: color
 	}
-
-	return hueA - hueB
 }
 
-/*
- * Sort by alpha channel, transparent to opaque
- */
-function sortByAlpha({hsl: colorA}, {hsl: colorB}) {
-	if (colorA.alpha === colorB.alpha) {
-		return sortByLightness(colorA, colorB)
-	}
+const sortFn = (a, b) => {
+	const aa = convert(a)
+	const bb = convert(b)
 
-	return colorB.alpha - colorA.alpha
-}
-
-/*
- * Sort by lightness, light to dark
- */
-function sortByLightness(colorA, colorB) {
-	const {lightness: lightnessA} = colorA
-	const {lightness: lightnessB} = colorB
-
-	return lightnessB - lightnessA
-}
-
-/*
- * Determines if a given color is a pure grey
- */
-function isGrey(color) {
-	return color.hsl.saturation === 0
-}
-
-/*
- * Determines if a color is fully transparent
- */
-function isTransparent(color) {
-	return color.hsl.alpha === 0
-}
-
-/*
- * Sort an array of CSS colors
- *
- * @param colors An array of CSS colors
- * @returns array A new sorted array
- */
-module.exports = colors => {
-	// Add an `hsl` prop to our array to use for sorting
-	const mapped = colors.map(color => {
-		const {h: hue, s: saturation, l: lightness, a: alpha} = tinycolor(
-			color
-		).toHsl()
-
-		return {
-			authored: color,
-			hsl: {hue, saturation, lightness, alpha}
+	// Move fully transparent colors to the back and
+	// sort by A-Z if both colors are fully transparent
+	if (aa.alpha === 0 || bb.alpha === 0) {
+		if (aa.alpha === bb.alpha) {
+			return aa.authored.toLowerCase().localeCompare(bb.authored.toLowerCase())
 		}
-	})
 
-	return (
-		mapped
-			// Sort by hue
-			.sort(sortByHue)
-			// Remove the grey colors
-			.filter(color => !isGrey(color))
-			.filter(color => !isTransparent(color))
-			.concat(
-				// Shift the grey colors to the back
-				mapped
-					.filter(color => isGrey(color) && !isTransparent(color))
-					// And sort the greys by lightness
-					.sort(sortByAlpha)
-			)
-			.concat(
-				// Shift fully transparent colors after the greys
-				mapped
-					.filter(color => isTransparent(color))
-					.sort(sortByHue)
-			)
-			// Finally, return the array in the form it was given to us
-			.map(color => color.authored)
-	)
+		return bb.alpha - aa.alpha
+	}
+
+	// Move grey-ish values to the back
+	if (
+		(aa.saturation === 0 || bb.saturation === 0) &&
+		aa.saturation !== bb.saturation
+	) {
+		return bb.saturation - aa.saturation
+	}
+
+	// Sort by hue (lowest first)
+	if (aa.hue !== bb.hue) {
+		return aa.hue - bb.hue
+	}
+
+	// Sort by saturation (highest first)
+	if (aa.saturation !== bb.saturation) {
+		return aa.saturation - bb.saturation
+	}
+
+	// Comparing grey values, light before dark
+	if (aa.saturation === 0 && bb.saturation === 0) {
+		if (aa.lightness !== bb.lightness) {
+			return bb.lightness - aa.lightness
+		}
+	}
+
+	// Sort by transparency, least transparent first
+	if (aa.alpha !== bb.alpha) {
+		return bb.alpha - aa.alpha
+	}
 }
+
+module.exports = colors => colors.sort(sortFn)
+module.exports.convert = convert
+module.exports.sortFn = sortFn
