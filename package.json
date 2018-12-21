@@ -1,6 +1,6 @@
 {
   "name": "color-sorter",
-  "version": "2.2.1",
+  "version": "3.0.0",
   "description": "Sort colors by hue, then saturation.",
   "homepage": "https://www.projectwallace.com/oss",
   "main": "color-sorter.js",
