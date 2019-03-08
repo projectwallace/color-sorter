@@ -6,6 +6,7 @@
 ![Dependencies Status](https://img.shields.io/david/bartveneman/color-sorter.svg)
 ![Dependencies Status](https://img.shields.io/david/dev/bartveneman/color-sorter.svg)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
+[![Project: Wallace](https://img.shields.io/badge/Project-Wallace-29c87d.svg)](https://www.projectwallace.com/oss)
 
 Sort CSS colors by hue, then by saturation. Black-grey-white colors (colors with
 0% saturation) are shifted to the end. Fully transparent colors are placed at
