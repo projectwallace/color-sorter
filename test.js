@@ -14,23 +14,23 @@ test('it exposes a sortFn', t => {
 })
 
 test('the convert fn converts colors to an HSLA object', t => {
-	;[
+	const colors = [
 		'red',
 		'hsla(0, 100%, 50%, 1)',
 		'hsl(0, 100%, 50%)',
 		'rgb(255, 0, 0)',
 		'rgba(255, 0, 0, 1)'
-	]
-		.map(color => colorSorter.convert(color))
-		.forEach(color => {
-			t.deepEqual(color, {
-				hue: 0,
-				saturation: 1,
-				lightness: 0.5,
-				alpha: 1,
-				authored: color.authored
-			})
+	].map(color => colorSorter.convert(color))
+
+	colors.forEach(color => {
+		t.deepEqual(color, {
+			hue: 0,
+			saturation: 1,
+			lightness: 0.5,
+			alpha: 1,
+			authored: color.authored
 		})
+	})
 })
 
 test('Colors are sorted by Hue', t => {
