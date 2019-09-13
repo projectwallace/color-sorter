@@ -15,47 +15,47 @@ const convert = color => {
 }
 
 const sortFn = (a, b) => {
-	const aa = convert(a)
-	const bb = convert(b)
+	const colorA = convert(a)
+	const colorB = convert(b)
 
 	// Move fully transparent colors to the back and
 	// sort by A-Z if both colors are fully transparent
-	if (aa.alpha === 0 || bb.alpha === 0) {
-		if (aa.alpha === bb.alpha) {
-			return aa.authored.toLowerCase().localeCompare(bb.authored.toLowerCase())
+	if (colorA.alpha === 0 || colorB.alpha === 0) {
+		if (colorA.alpha === colorB.alpha) {
+			return colorA.authored.toLowerCase().localeCompare(colorB.authored.toLowerCase())
 		}
 
-		return bb.alpha - aa.alpha
+		return colorB.alpha - colorA.alpha
 	}
 
 	// Move grey-ish values to the back
 	if (
-		(aa.saturation === 0 || bb.saturation === 0) &&
-		aa.saturation !== bb.saturation
+		(colorA.saturation === 0 || colorB.saturation === 0) &&
+		colorA.saturation !== colorB.saturation
 	) {
-		return bb.saturation - aa.saturation
+		return colorB.saturation - colorA.saturation
 	}
 
 	// Sort by hue (lowest first)
-	if (aa.hue !== bb.hue) {
-		return aa.hue - bb.hue
+	if (colorA.hue !== colorB.hue) {
+		return colorA.hue - colorB.hue
 	}
 
 	// Sort by saturation (highest first)
-	if (aa.saturation !== bb.saturation) {
-		return aa.saturation - bb.saturation
+	if (colorA.saturation !== colorB.saturation) {
+		return colorA.saturation - colorB.saturation
 	}
 
-	// Comparing grey values, light before dark
-	if (aa.saturation === 0 && bb.saturation === 0) {
-		if (aa.lightness !== bb.lightness) {
-			return bb.lightness - aa.lightness
+	// Comparing gray values, light before dark
+	if (colorA.saturation === 0 && colorB.saturation === 0) {
+		if (colorA.lightness !== colorB.lightness) {
+			return colorB.lightness - colorA.lightness
 		}
 	}
 
 	// Sort by transparency, least transparent first
-	if (aa.alpha !== bb.alpha) {
-		return bb.alpha - aa.alpha
+	if (colorA.alpha !== colorB.alpha) {
+		return colorB.alpha - colorA.alpha
 	}
 }
 

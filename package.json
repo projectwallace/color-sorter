@@ -5,12 +5,9 @@
   "homepage": "https://www.projectwallace.com/oss",
   "main": "color-sorter.js",
   "scripts": {
-    "test": "xo && ava"
+    "test": "eslint color-sorter.js test.js && nyc ava"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bartveneman/color-sorter.git"
-  },
+  "repository": "bartveneman/color-sorter",
   "keywords": [
     "css",
     "color-sorting",
@@ -29,27 +26,12 @@
     "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
+    "@bartveneman/eslint-config-bv": "0.0.2",
     "ava": "^2.3.0",
-    "prettier": "^1.18.2",
-    "xo": "^0.24.0"
+    "eslint": "^6.3.0",
+    "nyc": "^14.1.1"
   },
-  "xo": {
-    "semicolon": false,
-    "prettier": true
-  },
-  "prettier": {
-    "useTabs": true,
-    "semi": false,
-    "singleQuote": true,
-    "bracketSpacing": false,
-    "proseWrap": "always",
-    "overrides": [
-      {
-        "files": "*.json",
-        "options": {
-          "useTabs": false
-        }
-      }
-    ]
+  "eslintConfig": {
+    "extends": "@bartveneman/eslint-config-bv"
   }
 }
