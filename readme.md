@@ -19,7 +19,9 @@ This sorting algorithm is very opinionated and might not fit _your_ needs!
 ```js
 var colorSort = require('color-sorter')
 var colors = ['#000', 'red', 'hsl(0, 10%, 60%)']
-var sorted = colors.sort(colorSort)
+var sorted = colors.sort(colorSort.sortFn)
+// Or: 
+// sorted = colorSort(colors)
 
 // => sorted:
 // [
