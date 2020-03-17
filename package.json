@@ -27,9 +27,9 @@
   },
   "devDependencies": {
     "@bartveneman/eslint-config-bv": "0.0.2",
-    "ava": "^2.3.0",
+    "ava": "^3.5.0",
     "eslint": "^6.3.0",
-    "nyc": "^14.1.1"
+    "nyc": "^15.0.0"
   },
   "eslintConfig": {
     "extends": "@bartveneman/eslint-config-bv"
