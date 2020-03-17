@@ -1,7 +1,7 @@
 # color-sorter
 
 [![NPM Version](https://img.shields.io/npm/v/color-sorter.svg)](https://www.npmjs.com/package/color-sorter)
-[![Build Status](https://travis-ci.org/bartveneman/color-sorter.svg?branch=master)](https://travis-ci.org/bartveneman/color-sorter)
+![Build](https://github.com/bartveneman/color-sorter/workflows/Node.js%20Package/badge.svg?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/github/bartveneman/color-sorter/badge.svg)](https://snyk.io/test/github/bartveneman/color-sorter)
 ![Dependencies Status](https://img.shields.io/david/bartveneman/color-sorter.svg)
 ![Dependencies Status](https://img.shields.io/david/dev/bartveneman/color-sorter.svg)
