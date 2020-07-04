@@ -62,8 +62,7 @@ where this package is used for sorting the colors.
   analysis for a string of CSS
 - [Wallace](https://github.com/bartveneman/wallace-cli) - CLI tool for
   @projectwallace/css-analyzer
-- [Gromit](https://github.com/bartveneman/gromit-cli) - A test framework to
-  assert that CSS doesn't exceeds certain thresholds
+- [Constyble](https://github.com/bartveneman/constyble) - A CSS complexity linter, based on css-analyzer. Don't let your CSS grow beyond the thresholds that you provide.
 
 ## License
 
