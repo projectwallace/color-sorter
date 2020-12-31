@@ -8,6 +8,8 @@
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 [![Project: Wallace](https://img.shields.io/badge/Project-Wallace-29c87d.svg)](https://www.projectwallace.com/oss)
 
+![Color sorter](https://repository-images.githubusercontent.com/142018423/f0333800-be49-11ea-8033-0e3df5daf1ab)
+
 Sort CSS colors by hue, then by saturation. Black-grey-white colors (colors with
 0% saturation) are shifted to the end. Fully transparent colors are placed at
 the _very_ end.
