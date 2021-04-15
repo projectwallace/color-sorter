@@ -1,7 +1,10 @@
-const tinycolor = require('tinycolor2')
+const {colord, extend} = require('colord')
+const namesPlugin = require('colord/plugins/names')
+
+extend([namesPlugin])
 
 const convert = color => {
-	const {h: hue, s: saturation, l: lightness, a: alpha} = tinycolor(
+	const {h: hue, s: saturation, l: lightness, a: alpha} = colord(
 		color
 	).toHsl()
 
