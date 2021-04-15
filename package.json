@@ -7,6 +7,9 @@
   "scripts": {
     "test": "eslint color-sorter.js test.js && nyc ava"
   },
+  "engines": {
+    "node": ">=10"
+  },
   "repository": "bartveneman/color-sorter",
   "keywords": [
     "css",
