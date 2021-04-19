@@ -1,6 +1,6 @@
 {
   "name": "color-sorter",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Sort colors in a visually pleasing way.",
   "homepage": "https://www.projectwallace.com/oss",
   "main": "color-sorter.js",
