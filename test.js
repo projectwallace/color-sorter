@@ -121,18 +121,18 @@ test('Grey-ish colors are sorted by Lightness, then by Alpha', t => {
 	const expected = [
 		'hsla(0, 0, 20%, 1)',
 		'hsla(0, 0, 10%, 1)',
-		'hsla(0, 0, 0, 0)',
-		'hsla(0, 0, 10%, 0)'
+		'hsla(0, 0, 10%, 0)',
+		'hsla(0, 0, 0, 0)'
 	]
 	const actual = colorSorter(colors)
 
 	t.deepEqual(actual, expected)
 })
 
-test('Fully transparent colors are shifted to the end', t => {
-	const colors = ['hsla(0, 0, 0, 0)', 'hsla(0, 0, 0, .5)', 'hsla(0, 0, 0, 1)']
+test('Fully transparent colors are sorted along their opaque companions', t => {
+	const colors = ['rgba(255, 0, 0, 0)', 'hsla(0, 100%, 50%, 0.1)', 'red']
 	const actual = colorSorter(colors)
-	const expected = ['hsla(0, 0, 0, 1)', 'hsla(0, 0, 0, .5)', 'hsla(0, 0, 0, 0)']
+	const expected = ['red', 'hsla(0, 100%, 50%, 0.1)', 'rgba(255, 0, 0, 0)']
 
 	t.deepEqual(actual, expected)
 })
