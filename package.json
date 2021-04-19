@@ -10,6 +10,9 @@
   "engines": {
     "node": ">=10"
   },
+  "files": [
+    "color-sorter.js"
+  ],
   "repository": "projectwallace/color-sorter",
   "keywords": [
     "css",
