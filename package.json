@@ -1,7 +1,7 @@
 {
   "name": "color-sorter",
   "version": "4.0.1",
-  "description": "Sort colors by hue, then saturation.",
+  "description": "Sort colors in a visually pleasing way.",
   "homepage": "https://www.projectwallace.com/oss",
   "main": "color-sorter.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "engines": {
     "node": ">=10"
   },
-  "repository": "bartveneman/color-sorter",
+  "repository": "projectwallace/color-sorter",
   "keywords": [
     "css",
     "color-sorting",
@@ -23,10 +23,10 @@
   "author": "Bart Veneman",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bartveneman/color-sorter/issues"
+    "url": "https://github.com/projectwallace/color-sorter/issues"
   },
   "dependencies": {
-    "tinycolor2": "^1.4.1"
+    "colord": "^1.1.0"
   },
   "devDependencies": {
     "@bartveneman/eslint-config-bv": "0.0.2",
