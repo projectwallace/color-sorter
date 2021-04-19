@@ -21,16 +21,6 @@ const sortFn = (a, b) => {
 	const colorA = convert(a)
 	const colorB = convert(b)
 
-	// Move fully transparent colors to the back and
-	// sort by A-Z if both colors are fully transparent
-	if (colorA.alpha === 0 || colorB.alpha === 0) {
-		if (colorA.alpha === colorB.alpha) {
-			return colorA.authored.toLowerCase().localeCompare(colorB.authored.toLowerCase())
-		}
-
-		return colorB.alpha - colorA.alpha
-	}
-
 	// Move grey-ish values to the back
 	if (
 		(colorA.saturation === 0 || colorB.saturation === 0) &&
@@ -57,9 +47,11 @@ const sortFn = (a, b) => {
 	}
 
 	// Sort by transparency, least transparent first
-	if (colorA.alpha !== colorB.alpha) {
-		return colorB.alpha - colorA.alpha
+	if (colorA.alpha === colorB.alpha) {
+		return colorA.authored.toLowerCase().localeCompare(colorB.authored.toLowerCase())
 	}
+
+	return colorB.alpha - colorA.alpha
 }
 
 module.exports = colors => colors.sort(sortFn)
