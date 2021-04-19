@@ -53,7 +53,7 @@ test('Colors are sorted by Hue', t => {
 	t.deepEqual(actual, expected)
 })
 
-test.skip('Colors are sorted by Hue, then by saturation', t => {
+test('Colors are sorted by Hue, then by saturation', t => {
 	const colors = [
 		'hsl(0, 100%, 50%)',
 		'hsl(0, 50%, 50%)',
@@ -63,8 +63,8 @@ test.skip('Colors are sorted by Hue, then by saturation', t => {
 	const expected = [
 		'hsl(0, 50%, 50%)',
 		'hsl(0, 100%, 50%)',
-		'hsl(50, 100%, 50%)',
-		'hsl(50, 20%, 50%)'
+		'hsl(50, 20%, 50%)',
+		'hsl(50, 100%, 50%)'
 	]
 	const actual = colorSorter(colors)
 
@@ -137,101 +137,55 @@ test('Fully transparent colors are shifted to the end', t => {
 	t.deepEqual(actual, expected)
 })
 
-test.only('smoke test', t => {
+test('smoke test', t => {
 	const colors = [
 		'#4b4747',
-		'#f00',
-		'rgb(255, 0, 0)',
 		'#d70c0b',
-		'rgb(215, 12, 11)',
+		'#f00',
 		'#f22b24',
-		'rgb(242, 43, 36)',
 		'#ff6930',
-		'rgb(255, 105, 48)',
 		'#eb6c1e',
-		'rgb(235, 108, 30)',
 		'#eb6d1e',
-		'rgb(235, 109, 30)',
 		'#f57917',
-		'rgb(245, 121, 23)',
 		'#ff8a0a',
-		'rgb(255, 138, 10)',
 		'#f7a336',
-		'rgb(247, 163, 54)',
 		'#feb95a',
-		'rgb(254, 185, 90)',
 		'#eca920',
-		'rgb(236, 169, 32)',
 		'#f1c15d',
-		'rgb(241, 193, 93)',
 		'#f1c260',
-		'rgb(241, 194, 96)',
 		'#ff0',
-		'rgb(255, 255, 0)',
 		'#c8d05b',
-		'rgb(200, 208, 91)',
 		'#ccd557',
-		'rgb(204, 213, 87)',
 		'#d2ff52',
-		'rgb(210, 255, 82)',
 		'#10ac47',
-		'rgb(16, 172, 71)',
 		'#04a03b',
-		'rgb(4, 160, 59)',
 		'#03fff3',
-		'rgb(3, 255, 243)',
-		'#38d7df',
-		'rgb(56, 215, 223)',
 		'#25bbc3',
-		'rgb(37, 187, 195)',
+		'#38d7df',
 		'#15b8ec',
-		'rgb(21, 184, 236)',
 		'#00adea',
-		'rgb(0, 173, 234)',
 		'#8e34c9',
-		'rgb(142, 52, 201)',
 		'#9a3dd1',
-		'rgb(154, 61, 209)',
 		'#cd66f6',
-		'rgb(205, 102, 246)',
 		'#fff',
-		'rgb(255, 255, 255)',
 		'rgba(255,255,255,0.2)',
-		'rgba(255, 255, 255, 0.2)',
 		'rgba(255,255,255,0.07)',
-		'rgba(255, 255, 255, 0.07)',
 		'#f9f9f9',
-		'rgb(249, 249, 249)',
 		'#f4f4f4',
-		'rgb(244, 244, 244)',
 		'#f2f2f2',
-		'rgb(242, 242, 242)',
 		'#e4e4e4',
-		'rgb(228, 228, 228)',
 		'#ddd',
-		'rgb(221, 221, 221)',
 		'#c0c0c0',
-		'rgb(192, 192, 192)',
 		'#666',
-		'rgb(102, 102, 102)',
 		'#4a4a4a',
-		'rgb(74, 74, 74)',
 		'#1d1d1d',
-		'rgb(29, 29, 29)',
 		'#0d0d0d',
-		'rgb(13, 13, 13)',
 		'#000',
-		'rgb(0, 0, 0)',
 		'rgba(0,0,0,0.8)',
-		'rgba(0, 0, 0, 0.8)',
 		'rgba(0,0,0,0.6)',
-		'rgba(0, 0, 0, 0.6)',
 		'rgba(0,0,0,0.4)',
-		'rgba(0, 0, 0, 0.4)',
 		'rgba(0,0,0,0.1)',
-		'rgba(0, 0, 0, 0.1)',
-		'rgba(0,0,0,0.05)',
-		'rgba(0, 0, 0, 0.05)'
+		'rgba(0,0,0,0.05)'
 	]
 	const expected = [...colors]
 	const actual = colorSorter(colors)
