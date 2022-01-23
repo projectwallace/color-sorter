@@ -81,8 +81,8 @@ test('Grey-ish values are shifted to the end (lightest first)', t => {
 	const expected = [
 		'hsl(0, 100%, 50%)', // Red
 		'hsl(240, 100%, 50%)', // Blue
-		'hsl(0, 0, 100%)', // White
-		'hsl(0, 0, 0)' // Black
+		'hsl(0, 0, 0)', // Black
+		'hsl(0, 0, 100%)' // White
 	]
 	const actual = colorSorter(colors)
 
@@ -93,18 +93,18 @@ test('Grey-ish colors are sorted by Lightness', t => {
 	// The key here is that saturation (the middle value in HSL)
 	// equals 0
 	const colors = [
-		'hsl(0, 0, 40%)',
-		'hsl(10, 0, 50%)',
-		'hsl(20, 0, 30%)',
-		'hsl(30, 0, 20%)',
-		'hsl(40, 0, 60%)'
+		'#000',
+		'#fff',
+		'#eee',
+		'#555',
+		'#222'
 	]
 	const expected = [
-		'hsl(40, 0, 60%)',
-		'hsl(10, 0, 50%)',
-		'hsl(0, 0, 40%)',
-		'hsl(20, 0, 30%)',
-		'hsl(30, 0, 20%)'
+		'#fff',
+		'#eee',
+		'#555',
+		'#222',
+		'#000'
 	]
 	const actual = colorSorter(colors)
 
@@ -119,10 +119,10 @@ test('Grey-ish colors are sorted by Lightness, then by Alpha', t => {
 		'hsla(0, 0, 0, 0)'
 	]
 	const expected = [
-		'hsla(0, 0, 20%, 1)',
-		'hsla(0, 0, 10%, 1)',
+		'hsla(0, 0, 0, 0)',
 		'hsla(0, 0, 10%, 0)',
-		'hsla(0, 0, 0, 0)'
+		'hsla(0, 0, 10%, 1)',
+		'hsla(0, 0, 20%, 1)'
 	]
 	const actual = colorSorter(colors)
 

@@ -29,7 +29,7 @@
     "url": "https://github.com/projectwallace/color-sorter/issues"
   },
   "dependencies": {
-    "colord": "^1.1.0"
+    "colord": "^2.9.2"
   },
   "devDependencies": {
     "@bartveneman/eslint-config-bv": "0.0.2",
