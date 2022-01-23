@@ -21,7 +21,9 @@
     "colors",
     "statistics",
     "stats",
-    "analytics"
+    "analytics",
+    "sort",
+    "order"
   ],
   "author": "Bart Veneman",
   "license": "MIT",
