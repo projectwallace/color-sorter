@@ -5,7 +5,9 @@
   "homepage": "https://www.projectwallace.com/oss",
   "main": "color-sorter.js",
   "scripts": {
-    "test": "eslint color-sorter.js test.js && node test.js"
+    "test:lint": "eslint color-sorter.js test.js",
+    "test:unit": "node test.js",
+    "test": "npm run test:lint && npm run test:unit"
   },
   "engines": {
     "node": ">=10"
