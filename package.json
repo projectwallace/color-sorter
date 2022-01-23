@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@bartveneman/eslint-config-bv": "0.0.2",
-    "eslint": "^7.24.0",
+    "eslint": "^8.7.0",
     "uvu": "^0.5.3"
   },
   "eslintConfig": {
