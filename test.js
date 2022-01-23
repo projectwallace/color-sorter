@@ -1,19 +1,20 @@
-const test = require('ava')
+const {test} = require('uvu')
+const assert = require('uvu/assert')
 const colorSorter = require('./color-sorter.js')
 
-test('it exposes a basic colorSort function', t => {
-	t.is(typeof colorSorter, 'function')
+test('it exposes a basic colorSort function', () => {
+	assert.is(typeof colorSorter, 'function')
 })
 
-test('it exposes a convert function', t => {
-	t.is(typeof colorSorter.convert, 'function')
+test('it exposes a convert function', () => {
+	assert.is(typeof colorSorter.convert, 'function')
 })
 
-test('it exposes a sortFn', t => {
-	t.is(typeof colorSorter.sortFn, 'function')
+test('it exposes a sortFn', () => {
+	assert.is(typeof colorSorter.sortFn, 'function')
 })
 
-test('the convert fn converts colors to an HSLA object', t => {
+test('the convert fn converts colors to an HSLA object', () => {
 	const colors = [
 		'red',
 		'hsla(0, 100%, 50%, 1)',
@@ -23,7 +24,7 @@ test('the convert fn converts colors to an HSLA object', t => {
 	].map(color => colorSorter.convert(color))
 
 	colors.forEach(color => {
-		t.deepEqual(color, {
+		assert.equal(color, {
 			hue: 0,
 			saturation: 100,
 			lightness: 50,
@@ -33,7 +34,7 @@ test('the convert fn converts colors to an HSLA object', t => {
 	})
 })
 
-test('Colors are sorted by Hue', t => {
+test('Colors are sorted by Hue', () => {
 	const colors = [
 		'hsl(0, 100%, 50%)',
 		'hsl(200, 100%, 50%)',
@@ -50,10 +51,10 @@ test('Colors are sorted by Hue', t => {
 	]
 	const actual = colorSorter(colors)
 
-	t.deepEqual(actual, expected)
+	assert.equal(actual, expected)
 })
 
-test('Colors are sorted by Hue, then by saturation', t => {
+test('Colors are sorted by Hue, then by saturation', () => {
 	const colors = [
 		'hsl(0, 100%, 50%)',
 		'hsl(0, 50%, 50%)',
@@ -68,10 +69,10 @@ test('Colors are sorted by Hue, then by saturation', t => {
 	]
 	const actual = colorSorter(colors)
 
-	t.deepEqual(actual, expected)
+	assert.equal(actual, expected)
 })
 
-test('Grey-ish values are shifted to the end (lightest first)', t => {
+test('Grey-ish values are shifted to the end (lightest first)', () => {
 	const colors = [
 		'hsl(0, 0, 0)', // Black
 		'hsl(0, 100%, 50%)', // Red,
@@ -86,10 +87,10 @@ test('Grey-ish values are shifted to the end (lightest first)', t => {
 	]
 	const actual = colorSorter(colors)
 
-	t.deepEqual(actual, expected)
+	assert.equal(actual, expected)
 })
 
-test('Grey-ish colors are sorted by Lightness', t => {
+test('Grey-ish colors are sorted by Lightness', () => {
 	// The key here is that saturation (the middle value in HSL)
 	// equals 0
 	const colors = [
@@ -108,10 +109,10 @@ test('Grey-ish colors are sorted by Lightness', t => {
 	]
 	const actual = colorSorter(colors)
 
-	t.deepEqual(actual, expected)
+	assert.equal(actual, expected)
 })
 
-test('Grey-ish colors are sorted by Lightness, then by Alpha', t => {
+test('Grey-ish colors are sorted by Lightness, then by Alpha', () => {
 	const colors = [
 		'hsla(0, 0, 20%, 1)',
 		'hsla(0, 0, 10%, 1)',
@@ -126,18 +127,18 @@ test('Grey-ish colors are sorted by Lightness, then by Alpha', t => {
 	]
 	const actual = colorSorter(colors)
 
-	t.deepEqual(actual, expected)
+	assert.equal(actual, expected)
 })
 
-test('Fully transparent colors are sorted along their opaque companions', t => {
+test('Fully transparent colors are sorted along their opaque companions', () => {
 	const colors = ['rgba(255, 0, 0, 0)', 'hsla(0, 100%, 50%, 0.1)', 'red']
 	const actual = colorSorter(colors)
 	const expected = ['red', 'hsla(0, 100%, 50%, 0.1)', 'rgba(255, 0, 0, 0)']
 
-	t.deepEqual(actual, expected)
+	assert.equal(actual, expected)
 })
 
-test('smoke test', t => {
+test('smoke test', () => {
 	const colors = [
 		'#4b4747',
 		'#d70c0b',
@@ -190,5 +191,7 @@ test('smoke test', t => {
 	const expected = [...colors]
 	const actual = colorSorter(colors)
 
-	t.deepEqual(actual, expected)
+	assert.equal(actual, expected)
 })
+
+test.run()
