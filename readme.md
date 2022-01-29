@@ -2,11 +2,6 @@
 
 [![NPM Version](https://img.shields.io/npm/v/color-sorter.svg)](https://www.npmjs.com/package/color-sorter)
 ![Build](https://github.com/bartveneman/color-sorter/workflows/Node.js%20Package/badge.svg?branch=master)
-[![Known Vulnerabilities](https://snyk.io/test/github/bartveneman/color-sorter/badge.svg)](https://snyk.io/test/github/bartveneman/color-sorter)
-![Dependencies Status](https://img.shields.io/david/bartveneman/color-sorter.svg)
-![Dependencies Status](https://img.shields.io/david/dev/bartveneman/color-sorter.svg)
-[![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
-[![Project: Wallace](https://img.shields.io/badge/Project-Wallace-29c87d.svg)](https://www.projectwallace.com/oss)
 
 ![Color sorter](https://repository-images.githubusercontent.com/142018423/f0333800-be49-11ea-8033-0e3df5daf1ab)
 
