@@ -1,32 +1,34 @@
-const {colord, extend} = require('colord')
-const namesPlugin = require('colord/plugins/names')
-
-extend([namesPlugin])
+import Color from 'colorjs.io'
 
 const convert = color => {
-	const {h: hue, s: saturation, l: lightness, a: alpha} = colord(
-		color
-	).toHsl()
+	const {coords, alpha} = new Color(color).to('oklch')
 
 	return {
-		hue,
-		saturation,
-		lightness,
-		alpha,
-		authored: color
+		// Specifies the perceived lightness, and is a <percentage> between 0% representing
+		// black and 100% representing white
+		lightness: coords[0],
+		// Chroma (roughly representing the "amount of color"). Its minimum useful value is 0,
+		// while its maximum is theoretically unbounded (but in practice does not exceed 0.4).
+		chroma: coords[1],
+		// Hue angle. 0deg points along the positive "a" axis (toward purplish red), 90deg
+		// points along the positive "b" axis (toward mustard yellow), 180deg points along
+		// the negative "a" axis (toward greenish cyan), and 270deg points along the
+		// negative "b" axis (toward sky blue).
+		hue: coords[2],
+		alpha: alpha
 	}
 }
 
-const sortFn = (a, b) => {
+export const sortFn = (a, b) => {
 	const colorA = convert(a)
 	const colorB = convert(b)
 
 	// Move grey-ish values to the back
 	if (
-		(colorA.saturation === 0 || colorB.saturation === 0) &&
-		colorA.saturation !== colorB.saturation
+		(colorA.chroma === 0 || colorB.chroma === 0) &&
+		colorA.chroma !== colorB.chroma
 	) {
-		return colorB.saturation - colorA.saturation
+		return colorB.chroma - colorA.chroma
 	}
 
 	// Sort by hue (lowest first)
@@ -34,13 +36,13 @@ const sortFn = (a, b) => {
 		return colorA.hue - colorB.hue
 	}
 
-	// Sort by saturation (highest first)
-	if (colorA.saturation !== colorB.saturation) {
-		return colorA.saturation - colorB.saturation
+	// Sort by chroma (highest first)
+	if (colorA.chroma !== colorB.chroma) {
+		return colorA.chroma - colorB.chroma
 	}
 
 	// Comparing gray values, light before dark
-	if (colorA.saturation === 0 && colorB.saturation === 0) {
+	if (colorA.chroma === 0 && colorB.chroma === 0) {
 		if (colorA.lightness !== colorB.lightness) {
 			return colorB.lightness - colorA.lightness
 		}
@@ -48,12 +50,10 @@ const sortFn = (a, b) => {
 
 	// Sort by transparency, least transparent first
 	if (colorA.alpha === colorB.alpha) {
-		return colorA.authored.toLowerCase().localeCompare(colorB.authored.toLowerCase())
+		return a.toLowerCase().localeCompare(b.toLowerCase())
 	}
 
 	return colorB.alpha - colorA.alpha
 }
 
-module.exports = colors => colors.sort(sortFn)
-module.exports.convert = convert
-module.exports.sortFn = sortFn
+export const colorSorter = colors => colors.sort(sortFn)

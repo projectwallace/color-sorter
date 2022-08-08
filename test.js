@@ -1,37 +1,13 @@
-const {test} = require('uvu')
-const assert = require('uvu/assert')
-const colorSorter = require('./color-sorter.js')
+import {test} from 'uvu'
+import * as assert from 'uvu/assert'
+import {colorSorter, sortFn} from './color-sorter.js'
 
 test('it exposes a basic colorSort function', () => {
 	assert.is(typeof colorSorter, 'function')
 })
 
-test('it exposes a convert function', () => {
-	assert.is(typeof colorSorter.convert, 'function')
-})
-
 test('it exposes a sortFn', () => {
-	assert.is(typeof colorSorter.sortFn, 'function')
-})
-
-test('the convert fn converts colors to an HSLA object', () => {
-	const colors = [
-		'red',
-		'hsla(0, 100%, 50%, 1)',
-		'hsl(0, 100%, 50%)',
-		'rgb(255, 0, 0)',
-		'rgba(255, 0, 0, 1)'
-	].map(color => colorSorter.convert(color))
-
-	colors.forEach(color => {
-		assert.equal(color, {
-			hue: 0,
-			saturation: 100,
-			lightness: 50,
-			alpha: 1,
-			authored: color.authored
-		})
-	})
+	assert.is(typeof sortFn, 'function')
 })
 
 test('Colors are sorted by Hue', () => {
@@ -64,8 +40,8 @@ test('Colors are sorted by Hue, then by saturation', () => {
 	const expected = [
 		'hsl(0, 50%, 50%)',
 		'hsl(0, 100%, 50%)',
-		'hsl(50, 20%, 50%)',
-		'hsl(50, 100%, 50%)'
+		'hsl(50, 100%, 50%)',
+		'hsl(50, 20%, 50%)'
 	]
 	const actual = colorSorter(colors)
 
@@ -74,16 +50,16 @@ test('Colors are sorted by Hue, then by saturation', () => {
 
 test('Grey-ish values are shifted to the end (lightest first)', () => {
 	const colors = [
-		'hsl(0, 0, 0)', // Black
+		'hsl(0, 0%, 0%)', // Black
 		'hsl(0, 100%, 50%)', // Red,
-		'hsl(0, 0, 100%)', // White
+		'hsl(0, 0%, 100%)', // White
 		'hsl(240, 100%, 50%)' // Blue
 	]
 	const expected = [
 		'hsl(0, 100%, 50%)', // Red
 		'hsl(240, 100%, 50%)', // Blue
-		'hsl(0, 0, 0)', // Black
-		'hsl(0, 0, 100%)' // White
+		'hsl(0, 0%, 100%)', // White
+		'hsl(0, 0%, 0%)' // Black
 	]
 	const actual = colorSorter(colors)
 
@@ -114,16 +90,16 @@ test('Grey-ish colors are sorted by Lightness', () => {
 
 test('Grey-ish colors are sorted by Lightness, then by Alpha', () => {
 	const colors = [
-		'hsla(0, 0, 20%, 1)',
-		'hsla(0, 0, 10%, 1)',
-		'hsla(0, 0, 10%, 0)',
-		'hsla(0, 0, 0, 0)'
+		'hsla(0, 0%, 20%, 1)',
+		'hsla(0, 0%, 10%, 1)',
+		'hsla(0, 0%, 10%, 0)',
+		'hsla(0, 0%, 0%, 0)'
 	]
 	const expected = [
-		'hsla(0, 0, 0, 0)',
-		'hsla(0, 0, 10%, 0)',
-		'hsla(0, 0, 10%, 1)',
-		'hsla(0, 0, 20%, 1)'
+		'hsla(0, 0%, 0%, 0)',
+		'hsla(0, 0%, 10%, 0)',
+		'hsla(0, 0%, 10%, 1)',
+		'hsla(0, 0%, 20%, 1)'
 	]
 	const actual = colorSorter(colors)
 

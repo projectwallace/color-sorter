@@ -12,6 +12,7 @@
   "engines": {
     "node": ">=10"
   },
+  "type": "module",
   "files": [
     "color-sorter.js"
   ],
@@ -33,7 +34,8 @@
     "url": "https://github.com/projectwallace/color-sorter/issues"
   },
   "dependencies": {
-    "colord": "^2.9.2"
+    "colord": "^2.9.2",
+    "colorjs.io": "^0.2.4"
   },
   "devDependencies": {
     "@bartveneman/eslint-config-bv": "0.0.2",
