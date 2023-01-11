@@ -33,12 +33,12 @@
     "url": "https://github.com/projectwallace/color-sorter/issues"
   },
   "dependencies": {
-    "colord": "^2.9.2"
+    "colord": "^2.9.3"
   },
   "devDependencies": {
     "@bartveneman/eslint-config-bv": "0.0.2",
-    "eslint": "^8.7.0",
-    "uvu": "^0.5.3"
+    "eslint": "^8.31.0",
+    "uvu": "^0.5.6"
   },
   "eslintConfig": {
     "extends": "@bartveneman/eslint-config-bv"
