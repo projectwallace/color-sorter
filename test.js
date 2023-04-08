@@ -14,6 +14,7 @@ test('API - it exposes a sortFn', () => {
 	assert.is(typeof sortFn, 'function')
 })
 
+// Skipping because of rounding issues in CSSTools
 test.skip('the convert fn converts colors to an HSLA object', () => {
 	const colors = [
 		'red',
@@ -49,7 +50,7 @@ test('Colors are sorted by Hue', () => {
 		'hsl(100, 100%, 50%)',
 		'hsl(200, 100%, 50%)'
 	]
-	const actual = colorSorter(colors)
+	const actual = colorSorter([...colors])
 
 	assert.equal(actual, expected)
 })
@@ -67,7 +68,7 @@ test('Colors are sorted by Hue, then by Saturation', () => {
 		'hsl(50, 100%, 50%)',
 		'hsl(50, 20%, 50%)'
 	]
-	const actual = colorSorter(colors)
+	const actual = colorSorter([...colors])
 
 	assert.equal(actual, expected)
 })
@@ -81,7 +82,7 @@ test('White first, Black shifted to end', () => {
 		'#fff',
 		'#000'
 	]
-	const actual = colorSorter(colors)
+	const actual = colorSorter([...colors])
 
 	assert.equal(actual, expected)
 })
@@ -99,7 +100,7 @@ test('Grey-ish values are shifted to the end (lightest first)', () => {
 		'hsl(0, 0%, 100%)', // White
 		'hsl(0, 0%, 0%)' // Black
 	]
-	const actual = colorSorter(colors)
+	const actual = colorSorter([...colors])
 
 	assert.equal(actual, expected)
 })
@@ -121,7 +122,7 @@ test('Grey-ish colors are sorted by Lightness', () => {
 		'#222',
 		'#000'
 	]
-	const actual = colorSorter(colors)
+	const actual = colorSorter([...colors])
 
 	assert.equal(actual, expected)
 })
@@ -139,14 +140,14 @@ test('Grey-ish colors are sorted by Lightness, then by Alpha', () => {
 		'hsla(0, 0%, 10%, 0)',
 		'hsla(0, 0%, 0%, 0)'
 	]
-	const actual = colorSorter(colors)
+	const actual = colorSorter([...colors])
 
 	assert.equal(actual, expected)
 })
 
 test('Fully transparent colors are sorted along their opaque companions', () => {
 	const colors = ['rgba(255, 0, 0, 0)', 'hsla(0, 100%, 50%, 0.1)', 'red']
-	const actual = colorSorter(colors)
+	const actual = colorSorter([...colors])
 	const expected = ['red', 'hsla(0, 100%, 50%, 0.1)', 'rgba(255, 0, 0, 0)']
 
 	assert.equal(actual, expected)
@@ -203,7 +204,27 @@ test('smoke test', () => {
 		'rgba(0,0,0,0.05)'
 	]
 	const expected = [...colors]
-	const actual = colorSorter(colors)
+	const actual = colorSorter([...colors])
+
+	assert.equal(actual, expected)
+})
+
+test('handles invalid color formats', () => {
+	let colors = [
+		'red',
+		'hsl(20, 0, 0)', // not using %
+		'unknownColorKeyword',
+		'rgb(100 / 100 / 100)', // slashes instead of commas
+		'blue'
+	]
+	let actual = colorSorter([...colors])
+	let expected = [
+		'red',
+		'blue',
+		'hsl(20, 0, 0)', // not using %
+		'unknownColorKeyword',
+		'rgb(100 / 100 / 100)', // slashes instead of commas
+	]
 
 	assert.equal(actual, expected)
 })

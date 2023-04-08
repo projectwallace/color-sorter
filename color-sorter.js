@@ -4,9 +4,17 @@ import { parseComponentValue } from '@csstools/css-parser-algorithms'
 
 /** @param {string} css */
 function parse(css) {
-	let tokens = tokenize({ css: css })
-	let value = parseComponentValue(tokens, {})
-	return colorDataTo(color(value), ColorNotation.HSL)
+	try {
+		let tokens = tokenize({ css: css })
+		let value = parseComponentValue(tokens, {})
+		let colorData = color(value)
+		return colorDataTo(colorData, ColorNotation.HSL)
+	} catch (error) {
+		return {
+			channels: [NaN, NaN, NaN],
+			alpha: NaN
+		}
+	}
 }
 
 /**
