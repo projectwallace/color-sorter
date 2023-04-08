@@ -5,9 +5,11 @@ import { parseComponentValue } from '@csstools/css-parser-algorithms'
 /** @param {string} css */
 function parse(css) {
 	try {
-		let tokens = tokenize({ css: css })
-		let value = parseComponentValue(tokens, {})
+		let tokens = tokenize({ css })
+		let value = parseComponentValue(tokens)
 		let colorData = color(value)
+		// Even out-of-sRGB-space colors are converted to HSL,
+		// where Saturation might be more than 100
 		return colorDataTo(colorData, ColorNotation.HSL)
 	} catch (error) {
 		return {
@@ -23,8 +25,6 @@ function parse(css) {
  */
 export function convert(color) {
 	let hsl = parse(color)
-	// Even out-of-sRGB-space colors are converted to HSL,
-	// where Saturation might be more than 100
 	let { channels, alpha } = hsl
 
 	return {

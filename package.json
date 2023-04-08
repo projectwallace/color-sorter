@@ -8,14 +8,17 @@
     "dist"
   ],
   "source": "./color-sorter.js",
+  "main": "./dist/color-sorter.umd.js",
+  "module": "./dist/color-sorter.module.mjs",
   "exports": {
     "types": "./dist/color-sorter.d.ts",
-    "default": "./dist/color-sorter.mjs"
+    "require": "./dist/color-sorter.cjs",
+    "default": "./dist/color-sorter.modern.mjs"
   },
   "types": "./dist/color-sorter.d.ts",
   "scripts": {
     "test": "node test.js",
-    "build": "microbundle --format modern,esm --raw"
+    "build": "microbundle"
   },
   "engines": {
     "node": "^18.0.0"
