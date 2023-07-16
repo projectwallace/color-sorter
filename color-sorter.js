@@ -1,25 +1,42 @@
-const {colord, extend} = require('colord')
-const namesPlugin = require('colord/plugins/names')
+import { colord, extend } from 'colord'
+import namesPlugin from 'colord/plugins/names'
 
 extend([namesPlugin])
 
-const convert = color => {
-	const {h: hue, s: saturation, l: lightness, a: alpha} = colord(
-		color
-	).toHsl()
+/**
+ * @typedef NormalizedColor
+ * @property {number} hue
+ * @property {number} saturation
+ * @property {number} lightness
+ * @property {number} alpha
+ */
+
+/**
+ * Convert a CSS (string) color into a normalized object that can be used for comparison
+ * @param {string} color
+ * @returns {NormalizedColor & { authored: string }}
+ */
+export function convert(color) {
+	let result = colord(color).toHsl()
 
 	return {
-		hue,
-		saturation,
-		lightness,
-		alpha,
+		hue: result.h,
+		saturation: result.s,
+		lightness: result.l,
+		alpha: result.a,
 		authored: color
 	}
 }
 
-const sortFn = (a, b) => {
-	const colorA = convert(a)
-	const colorB = convert(b)
+/**
+ * Function that sorts colors
+ * @param {string} a
+ * @param {string} b
+ * @returns {number}
+ */
+export function sortFn(a, b) {
+	let colorA = convert(a)
+	let colorB = convert(b)
 
 	// Move grey-ish values to the back
 	if (
@@ -54,6 +71,11 @@ const sortFn = (a, b) => {
 	return colorB.alpha - colorA.alpha
 }
 
-module.exports = colors => colors.sort(sortFn)
-module.exports.convert = convert
-module.exports.sortFn = sortFn
+/**
+ * Sort the `colors` array using `Array.sort()`, so beware that it changes the source input
+ * @param {string[]} colors
+ * @returns {string[]} sorted
+ */
+export function sort(colors) {
+	return colors.sort(sortFn)
+}
