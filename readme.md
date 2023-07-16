@@ -25,6 +25,11 @@ var sorted = colors.sort(sortFn);
 // ]
 ```
 
+Want to try it out?
+
+- [Stackblitz example with ESM](https://stackblitz.com/edit/color-sorter-example-esm?file=index.js&view=editor)
+- [Stackblitz example with CommonJS](https://stackblitz.com/edit/color-sorter-example-cjs?file=index.js&view=editor)
+
 ## Examples
 
 These examples can be seen on [Project Wallace](https://projectwallace.com)
