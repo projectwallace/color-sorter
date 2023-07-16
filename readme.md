@@ -1,8 +1,5 @@
 # color-sorter
 
-[![NPM Version](https://img.shields.io/npm/v/color-sorter.svg)](https://www.npmjs.com/package/color-sorter)
-![Build](https://github.com/bartveneman/color-sorter/workflows/Node.js%20Package/badge.svg?branch=master)
-
 ![Color sorter](https://repository-images.githubusercontent.com/142018423/f0333800-be49-11ea-8033-0e3df5daf1ab)
 
 Sort CSS colors by hue, then by saturation. Black-grey-white colors (colors with
@@ -14,11 +11,11 @@ This sorting algorithm is very opinionated and might not fit _your_ needs!
 ## Usage
 
 ```js
-var colorSort = require('color-sorter')
-var colors = ['#000', 'red', 'hsl(0, 10%, 60%)']
-var sorted = colors.sort(colorSort.sortFn)
-// Or: 
-// sorted = colorSort(colors)
+import { sortFn, sort } from "color-sorter";
+var colors = ["#000", "red", "hsl(0, 10%, 60%)"];
+var sorted = colors.sort(sortFn);
+// Or:
+// sorted = sort(colors)
 
 // => sorted:
 // [
@@ -57,9 +54,9 @@ where this package is used for sorting the colors.
 
 - [CSS Analyzer](https://github.com/projectwallace/css-analyzer) - Generate
   analysis for a string of CSS
-- [Wallace](https://github.com/bartveneman/wallace-cli) - CLI tool for
+- [Wallace](https://github.com/projectwallace/wallace-cli) - CLI tool for
   @projectwallace/css-analyzer
-- [Constyble](https://github.com/bartveneman/constyble) - A CSS complexity linter, based on css-analyzer. Don't let your CSS grow beyond the thresholds that you provide.
+- [Constyble](https://github.com/projectwallace/constyble) - A CSS complexity linter, based on css-analyzer. Don't let your CSS grow beyond the thresholds that you provide.
 
 ## License
 

@@ -2,20 +2,24 @@
   "name": "color-sorter",
   "version": "5.0.3",
   "description": "Sort colors in a visually pleasing way.",
-  "homepage": "https://www.projectwallace.com/oss",
-  "main": "color-sorter.js",
-  "scripts": {
-    "test:lint": "eslint color-sorter.js test.js",
-    "test:unit": "node test.js",
-    "test": "npm run test:lint && npm run test:unit"
+  "homepage": "https://github.com/projectwallace/color-sorter",
+  "repository": "projectwallace/color-sorter",
+  "type": "module",
+  "source": "color-sorter.js",
+  "exports": {
+    "require": "./dist/color-sorter.cjs",
+    "default": "./dist/color-sorter.modern.js"
   },
-  "engines": {
-    "node": ">=10"
+  "types": "./dist/color-sorter.d.ts",
+  "main": "./dist/color-sorter.cjs",
+  "module": "./dist/color-sorter.modern.js",
+  "scripts": {
+    "test": "uvu",
+    "build": "microbundle"
   },
   "files": [
-    "color-sorter.js"
+    "dist"
   ],
-  "repository": "projectwallace/color-sorter",
   "keywords": [
     "css",
     "color-sorting",
@@ -36,11 +40,7 @@
     "colord": "^2.9.3"
   },
   "devDependencies": {
-    "@bartveneman/eslint-config-bv": "0.0.2",
-    "eslint": "^8.31.0",
+    "microbundle": "^0.15.1",
     "uvu": "^0.5.6"
-  },
-  "eslintConfig": {
-    "extends": "@bartveneman/eslint-config-bv"
   }
 }
