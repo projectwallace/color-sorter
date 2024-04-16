@@ -8,7 +8,8 @@
   "source": "color-sorter.js",
   "exports": {
     "require": "./dist/color-sorter.cjs",
-    "default": "./dist/color-sorter.modern.js"
+    "default": "./dist/color-sorter.modern.js",
+    "types": "./dist/color-sorter.d.ts"
   },
   "types": "./dist/color-sorter.d.ts",
   "main": "./dist/color-sorter.cjs",
