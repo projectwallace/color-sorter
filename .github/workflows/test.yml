@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           cache: "npm"
-      - run: npm install --no-audit --ignore-scripts
+      - run: npm install --no-audit --no-fund --ignore-scripts
       - run: npm test
   lint:
     name: Lint
