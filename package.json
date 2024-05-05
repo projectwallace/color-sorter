@@ -7,9 +7,9 @@
   "type": "module",
   "source": "color-sorter.js",
   "exports": {
+    "types": "./dist/color-sorter.d.ts",
     "require": "./dist/color-sorter.cjs",
-    "default": "./dist/color-sorter.modern.js",
-    "types": "./dist/color-sorter.d.ts"
+    "default": "./dist/color-sorter.modern.js"
   },
   "types": "./dist/color-sorter.d.ts",
   "main": "./dist/color-sorter.cjs",
