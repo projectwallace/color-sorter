@@ -30,7 +30,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           cache: "npm"
-      - run: npm install --no-audit --ignore-scripts
+      - run: npm install --no-audit --no-fund --ignore-scripts
       - name: Check types
         run: npm run check --if-present
       - name: Lint JS
