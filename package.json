@@ -5,18 +5,19 @@
   "homepage": "https://github.com/projectwallace/color-sorter",
   "repository": "projectwallace/color-sorter",
   "type": "module",
-  "source": "color-sorter.js",
+  "source": "index.js",
   "exports": {
-    "types": "./dist/color-sorter.d.ts",
-    "require": "./dist/color-sorter.cjs",
-    "default": "./dist/color-sorter.modern.js"
+    "types": "./dist/index.d.ts",
+    "require": "./dist/color-sorter.umd.cjs",
+    "default": "./dist/color-sorter.js"
   },
-  "types": "./dist/color-sorter.d.ts",
-  "main": "./dist/color-sorter.cjs",
-  "module": "./dist/color-sorter.modern.js",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/color-sorter.umd.cjs",
+  "module": "./dist/color-sorter.js",
+  "unpkg": "./dist/color-sorter.umd.cjs",
   "scripts": {
     "test": "uvu",
-    "build": "microbundle"
+    "build": "vite build"
   },
   "files": [
     "dist"
@@ -41,7 +42,8 @@
     "colord": "^2.9.3"
   },
   "devDependencies": {
-    "microbundle": "^0.15.1",
-    "uvu": "^0.5.6"
+    "uvu": "^0.5.6",
+    "vite": "^5.2.12",
+    "vite-plugin-dts": "^3.9.1"
   }
 }
