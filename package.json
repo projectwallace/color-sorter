@@ -17,7 +17,8 @@
   "unpkg": "./dist/color-sorter.umd.cjs",
   "scripts": {
     "test": "uvu",
-    "build": "vite build"
+    "build": "vite build",
+    "check": "tsc --noEmit"
   },
   "files": [
     "dist"
