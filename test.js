@@ -1,6 +1,6 @@
 import { test } from 'uvu'
 import * as assert from 'uvu/assert'
-import { convert, sort, sortFn } from './color-sorter.js'
+import { convert, sort, sortFn } from './index.js'
 
 test('it exposes a basic sort function', () => {
 	assert.is(typeof sort, 'function')
