@@ -43,6 +43,8 @@
     "colord": "^2.9.3"
   },
   "devDependencies": {
+    "@codecov/vite-plugin": "^0.0.1-beta.9",
+    "c8": "^10.1.2",
     "uvu": "^0.5.6",
     "vite": "^5.2.12",
     "vite-plugin-dts": "^3.9.1"
