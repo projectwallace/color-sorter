@@ -42,7 +42,7 @@ jobs:
       - name: "Publint"
         run: npx publint
       - name: Run tests
-        run: c8 --reporter=lcov npm test
+        run: npx c8 --reporter=lcov npm test
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
