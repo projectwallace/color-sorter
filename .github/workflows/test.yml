@@ -63,4 +63,4 @@ jobs:
         uses: CodSpeedHQ/action@v2
         with:
           token: ${{ secrets.CODSPEED_TOKEN }}
-          run: node benchmark.js
+          run: node benchmarks.js
