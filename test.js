@@ -14,24 +14,24 @@ test('it exposes a sortFn', () => {
 	assert.is(typeof sortFn, 'function')
 })
 
-test('the convert fn converts colors to an HSLA object', () => {
+test('the convert fn converts colors to an oklch object', () => {
 	const colors = [
 		'red',
 		'hsla(0, 100%, 50%, 1)',
 		'hsl(0, 100%, 50%)',
 		'rgb(255, 0, 0)',
 		'rgba(255, 0, 0, 1)'
-	].map(color => convert(color))
+	]
 
-	colors.forEach(color => {
-		assert.equal(color, {
+	for (let color of colors) {
+		assert.equal(convert(color), {
 			hue: 0,
 			saturation: 100,
 			lightness: 50,
 			alpha: 1,
-			authored: color.authored
-		})
-	})
+			authored: color
+		}, `Failed convert for '${color}'`)
+	}
 })
 
 test('Colors are sorted by Hue', () => {
@@ -141,8 +141,8 @@ test('Fully transparent colors are sorted along their opaque companions', () => 
 test('smoke test', () => {
 	const colors = [
 		'#4b4747',
-		'#d70c0b',
 		'#f00',
+		'#d70c0b',
 		'#f22b24',
 		'#ff6930',
 		'#eb6c1e',
@@ -161,8 +161,8 @@ test('smoke test', () => {
 		'#10ac47',
 		'#04a03b',
 		'#03fff3',
-		'#25bbc3',
 		'#38d7df',
+		'#25bbc3',
 		'#15b8ec',
 		'#00adea',
 		'#8e34c9',

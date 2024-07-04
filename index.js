@@ -1,7 +1,4 @@
-import { colord, extend } from 'colord'
-import namesPlugin from 'colord/plugins/names'
-
-extend([namesPlugin])
+import Color from 'colorjs.io'
 
 /**
  * @typedef NormalizedColor
@@ -11,20 +8,53 @@ extend([namesPlugin])
  * @property {number} alpha
  */
 
+
+/**
+ * @param {string | number | {raw: string} | undefined} value
+ * @returns {number}
+ */
+function numerify(value) {
+	if (typeof value === 'number' && Number.isFinite(value)) {
+		return value
+	}
+	if (Number.isNaN(value)) {
+		return 0
+	}
+	if (typeof value === 'object' && 'raw' in value) {
+		return parseFloat(value.raw)
+	}
+	return 0
+}
+
 /**
  * Convert a CSS (string) color into a normalized object that can be used for comparison
  * @param {string} color
  * @returns {NormalizedColor & { authored: string }}
  */
 export function convert(color) {
-	let result = colord(color).toHsl()
+	try {
+		let converted = new Color(color)
+		let hsl = converted.hsl
+		let hue = numerify(hsl[0])
+		let saturation = numerify(hsl[1])
+		let lightness = numerify(hsl[2])
+		let alpha = numerify(converted.alpha)
 
-	return {
-		hue: result.h,
-		saturation: result.s,
-		lightness: result.l,
-		alpha: result.a,
-		authored: color
+		return {
+			hue,
+			saturation,
+			lightness,
+			alpha,
+			authored: color
+		}
+	} catch (e) {
+		return {
+			lightness: 0,
+			saturation: 0,
+			hue: 0,
+			alpha: 1,
+			authored: color
+		}
 	}
 }
 
