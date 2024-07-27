@@ -28,13 +28,14 @@ function numerify(value) {
 
 /**
  * Convert a CSS (string) color into a normalized object that can be used for comparison
- * @param {string} color
+ * @param {string} authored
  * @returns {NormalizedColor & { authored: string }}
  */
-export function convert(color) {
+export function convert(authored) {
 	// TODO: get rid of try/catch
-	let converted = new Color(color)
+	let converted = new Color(authored)
 	let hsl = converted.hsl
+	console.log(hsl)
 	let hue = numerify(hsl[0])
 	let saturation = numerify(hsl[1])
 	let lightness = numerify(hsl[2])
@@ -45,7 +46,7 @@ export function convert(color) {
 		saturation,
 		lightness,
 		alpha,
-		authored: color
+		authored
 	}
 }
 
