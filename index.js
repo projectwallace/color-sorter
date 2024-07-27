@@ -32,29 +32,20 @@ function numerify(value) {
  * @returns {NormalizedColor & { authored: string }}
  */
 export function convert(color) {
-	try {
-		let converted = new Color(color)
-		let hsl = converted.hsl
-		let hue = numerify(hsl[0])
-		let saturation = numerify(hsl[1])
-		let lightness = numerify(hsl[2])
-		let alpha = numerify(converted.alpha)
+	// TODO: get rid of try/catch
+	let converted = new Color(color)
+	let hsl = converted.hsl
+	let hue = numerify(hsl[0])
+	let saturation = numerify(hsl[1])
+	let lightness = numerify(hsl[2])
+	let alpha = numerify(converted.alpha)
 
-		return {
-			hue,
-			saturation,
-			lightness,
-			alpha,
-			authored: color
-		}
-	} catch (e) {
-		return {
-			lightness: 0,
-			saturation: 0,
-			hue: 0,
-			alpha: 1,
-			authored: color
-		}
+	return {
+		hue,
+		saturation,
+		lightness,
+		alpha,
+		authored: color
 	}
 }
 
