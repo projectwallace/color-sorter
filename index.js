@@ -1,4 +1,20 @@
-import Color from 'colorjs.io'
+import {
+	parse,
+	to as convertColor,
+	ColorSpace,
+	sRGB,
+	P3,
+	LCH,
+	HSL,
+	OKLCH,
+} from "colorjs.io/fn"
+
+// Register color spaces for parsing and converting
+ColorSpace.register(sRGB) // Can parse keywords and hex colors
+ColorSpace.register(P3)
+ColorSpace.register(HSL)
+ColorSpace.register(LCH)
+ColorSpace.register(OKLCH)
 
 /**
  * @typedef NormalizedColor
@@ -32,11 +48,10 @@ function numerify(value) {
  * @returns {NormalizedColor & { authored: string }}
  */
 export function convert(authored) {
-	// TODO: get rid of try/catch
-	// TODO: use Color.js's faster exports
 	try {
-		let converted = new Color(authored)
-		let hsl = converted.hsl
+		let parsed = parse(authored)
+		let converted = parsed.spaceId === 'hsl' ? parsed : convertColor(parsed, HSL)
+		let hsl = converted.coords
 		let hue = numerify(hsl[0])
 		let saturation = numerify(hsl[1])
 		let lightness = numerify(hsl[2])
