@@ -21,17 +21,34 @@ test('the convert fn converts colors to an HSLA object', () => {
 		'hsl(0, 100%, 50%)',
 		'rgb(255, 0, 0)',
 		'rgba(255, 0, 0, 1)'
-	].map(color => convert(color))
+	]
 
-	colors.forEach(color => {
-		assert.equal(color, {
+	for (let color of colors) {
+		assert.equal(convert(color), {
 			hue: 0,
 			saturation: 100,
 			lightness: 50,
 			alpha: 1,
-			authored: color.authored
-		})
-	})
+			authored: color
+		}, `Failed convert for '${color}'`)
+	}
+})
+
+test('invalid colors return a default object', () => {
+	const colors = [
+		'invalid',
+		'hsl(0, 0, 0)',
+	]
+
+	for (let color of colors) {
+		assert.equal(convert(color), {
+			hue: 0,
+			saturation: 0,
+			lightness: 0,
+			alpha: 0,
+			authored: color
+		}, `Failed convert for '${color}'`)
+	}
 })
 
 test('Colors are sorted by Hue', () => {
@@ -74,16 +91,16 @@ test('Colors are sorted by Hue, then by saturation', () => {
 
 test('Grey-ish values are shifted to the end (lightest first)', () => {
 	const colors = [
-		'hsl(0, 0, 0)', // Black
+		'hsl(0, 0%, 0%)', // Black
 		'hsl(0, 100%, 50%)', // Red,
-		'hsl(0, 0, 100%)', // White
+		'hsl(0, 0%, 100%)', // White
 		'hsl(240, 100%, 50%)' // Blue
 	]
 	const expected = [
 		'hsl(0, 100%, 50%)', // Red
 		'hsl(240, 100%, 50%)', // Blue
-		'hsl(0, 0, 0)', // Black
-		'hsl(0, 0, 100%)' // White
+		'hsl(0, 0%, 100%)', // White
+		'hsl(0, 0%, 0%)', // Black
 	]
 	const actual = sort(colors)
 
@@ -114,16 +131,16 @@ test('Grey-ish colors are sorted by Lightness', () => {
 
 test('Grey-ish colors are sorted by Lightness, then by Alpha', () => {
 	const colors = [
-		'hsla(0, 0, 20%, 1)',
-		'hsla(0, 0, 10%, 1)',
-		'hsla(0, 0, 10%, 0)',
-		'hsla(0, 0, 0, 0)'
+		'hsla(0, 0%, 20%, 1)',
+		'hsla(0, 0%, 10%, 1)',
+		'hsla(0, 0%, 10%, 0)',
+		'hsla(0, 0%, 0%, 0)'
 	]
 	const expected = [
-		'hsla(0, 0, 0, 0)',
-		'hsla(0, 0, 10%, 0)',
-		'hsla(0, 0, 10%, 1)',
-		'hsla(0, 0, 20%, 1)'
+		'hsla(0, 0%, 20%, 1)',
+		'hsla(0, 0%, 10%, 1)',
+		'hsla(0, 0%, 10%, 0)',
+		'hsla(0, 0%, 0%, 0)',
 	]
 	const actual = sort(colors)
 
@@ -141,8 +158,8 @@ test('Fully transparent colors are sorted along their opaque companions', () => 
 test('smoke test', () => {
 	const colors = [
 		'#4b4747',
-		'#d70c0b',
 		'#f00',
+		'#d70c0b',
 		'#f22b24',
 		'#ff6930',
 		'#eb6c1e',
@@ -161,8 +178,8 @@ test('smoke test', () => {
 		'#10ac47',
 		'#04a03b',
 		'#03fff3',
-		'#25bbc3',
 		'#38d7df',
+		'#25bbc3',
 		'#15b8ec',
 		'#00adea',
 		'#8e34c9',

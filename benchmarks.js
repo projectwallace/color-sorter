@@ -81,12 +81,6 @@ bench.add('real world sort example #2 (nerdy.dev)', () => {
 		"rgb(43, 138, 62)",
 		"rgb(211, 249, 216)",
 		"rgb(51, 154, 240)",
-		"hsl(var(--shadow-color)/calc(var(--shadow-strength) + 2%))",
-		"hsl(var(--shadow-color)/calc(var(--shadow-strength) + 3%))",
-		"hsl(var(--shadow-color)/calc(var(--shadow-strength) + 4%))",
-		"hsl(var(--shadow-color)/calc(var(--shadow-strength) + 5%))",
-		"hsl(var(--shadow-color)/calc(var(--shadow-strength) + 6%))",
-		"hsl(var(--shadow-color)/calc(var(--shadow-strength) + 7%))",
 		"rgb(22, 25, 29)",
 		"rgb(173, 181, 189)",
 		"rgb(13, 15, 18)",
@@ -124,8 +118,6 @@ bench.add('real world sort example #2 (nerdy.dev)', () => {
 		"rgba(0, 0, 0, 0)",
 		"rgb(137, 41, 255)",
 		"rgb(230, 98, 230)",
-		"hsl(var(--indigo-12-hsl)/50%)",
-		"hsl(var(--indigo-12-hsl)/75%)",
 		"color(display-p3 0.001 0.015 0.03)"
 	])
 })
