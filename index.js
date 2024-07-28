@@ -33,6 +33,7 @@ function numerify(value) {
  */
 export function convert(authored) {
 	// TODO: get rid of try/catch
+	// TODO: use Color.js's faster exports
 	try {
 		let converted = new Color(authored)
 		let hsl = converted.hsl
