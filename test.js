@@ -34,6 +34,23 @@ test('the convert fn converts colors to an oklch object', () => {
 	}
 })
 
+test('invalid colors return a default object', () => {
+	const colors = [
+		'invalid',
+		'hsl(0, 0, 0)',
+	]
+
+	for (let color of colors) {
+		assert.equal(convert(color), {
+			hue: 0,
+			saturation: 0,
+			lightness: 0,
+			alpha: 0,
+			authored: color
+		}, `Failed convert for '${color}'`)
+	}
+})
+
 test('Colors are sorted by Hue', () => {
 	const colors = [
 		'hsl(0, 100%, 50%)',
