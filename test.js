@@ -14,7 +14,7 @@ test('it exposes a sortFn', () => {
 	assert.is(typeof sortFn, 'function')
 })
 
-test('the convert fn converts colors to an oklch object', () => {
+test('the convert fn converts colors to an HSLA object', () => {
 	const colors = [
 		'red',
 		'hsla(0, 100%, 50%, 1)',
