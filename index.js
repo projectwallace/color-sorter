@@ -11,14 +11,14 @@ import Color from 'colorjs.io'
 /**
  * @param {string | number | {raw: string} | undefined} value
  * @returns {number}
- * @todo Make this faster based on usage heuristics
  */
 function numerify(value) {
+	// heuristics:
+	// - most times it's a number
+	// - a lot of times it's NaN
+	// - sometimes it's { type: 'number', raw: '0.5' }
 	if (typeof value === 'number' && Number.isFinite(value)) {
 		return value
-	}
-	if (Number.isNaN(value)) {
-		return 0
 	}
 	if (typeof value === 'object' && 'raw' in value) {
 		return parseFloat(value.raw)
