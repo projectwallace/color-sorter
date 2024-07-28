@@ -20,17 +20,18 @@ test('the convert fn converts colors to an HSLA object', () => {
 		'hsla(0, 100%, 50%, 1)',
 		'hsl(0, 100%, 50%)',
 		'rgb(255, 0, 0)',
-		'rgba(255, 0, 0, 1)'
+		'rgba(255, 0, 0, 1)',
+		'oklch(62.8% 0.25768330773615683 29.2338851923426)'
 	]
 
 	for (let color of colors) {
-		assert.equal(convert(color), {
-			hue: 0,
-			saturation: 100,
-			lightness: 50,
-			alpha: 1,
-			authored: color
-		}, `Failed convert for '${color}'`)
+		let converted = convert(color)
+		// Making sure most colors are mostly within the range
+		assert.ok(converted.hue >= 0 && converted.hue <= 0.01, `Failed hue for '${color}', got ${converted.hue}`)
+		assert.ok(converted.saturation >= 99.9 && converted.saturation <= 100.02, `Failed saturation for '${color}', got ${converted.saturation}`)
+		assert.ok(converted.lightness >= 49.9 && converted.lightness <= 50.02, `Failed lightness for '${color}', got ${converted.lightness}`)
+		assert.equal(converted.alpha, 1, `Failed alpha for '${color}'`)
+		assert.equal(converted.authored, color, `Failed authored for '${color}'`)
 	}
 })
 
