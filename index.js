@@ -50,7 +50,7 @@ function numerify(value) {
 export function convert(authored) {
 	try {
 		let parsed = parse(authored)
-		let converted = convertColor(parsed, HSL)
+		let converted = parsed.spaceId === 'hsl' ? parsed : convertColor(parsed, HSL)
 		let hsl = converted.coords
 		let hue = numerify(hsl[0])
 		let saturation = numerify(hsl[1])
