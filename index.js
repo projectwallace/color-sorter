@@ -25,7 +25,7 @@ ColorSpace.register(OKLCH)
  */
 
 /**
- * @param {string | number | {raw: string} | undefined} value
+ * @param {string | number | {raw: string} | undefined | null} value
  * @returns {number}
  * @todo Make this faster based on usage heuristics
  */
@@ -36,7 +36,7 @@ function numerify(value) {
 	if (Number.isNaN(value)) {
 		return 0
 	}
-	if (typeof value === 'object' && 'raw' in value) {
+	if (typeof value === 'object' && value !== null && 'raw' in value) {
 		return parseFloat(value.raw)
 	}
 	return 0
