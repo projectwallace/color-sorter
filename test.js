@@ -39,6 +39,8 @@ test('invalid colors return a default object', () => {
 	const colors = [
 		'invalid',
 		'hsl(0, 0, 0)',
+		'rgb(0 0 0 1)',
+		'rgb(a, b, c, 0)',
 	]
 
 	for (let color of colors) {
@@ -50,6 +52,14 @@ test('invalid colors return a default object', () => {
 			authored: color
 		}, `Failed convert for '${color}'`)
 	}
+
+	assert.equal(convert('rgb(NaN NaN NaN / 1)'), {
+		hue: 0,
+		saturation: 0,
+		lightness: 0,
+		alpha: 1,
+		authored: 'rgb(NaN NaN NaN / 1)'
+	})
 })
 
 test('Colors are sorted by Hue', () => {
@@ -145,6 +155,19 @@ test('Grey-ish colors are sorted by Lightness, then by Alpha', () => {
 	]
 	const actual = sort(colors)
 
+	assert.equal(actual, expected)
+})
+
+test('colors with identical transparency are sorted alphabetically', () => {
+	const colors = [
+		'RGBA(255, 0, 0, 0.5)',
+		'rgba(255, 0, 0, 0.5)',
+	]
+	const actual = sort(colors)
+	const expected = [
+		'RGBA(255, 0, 0, 0.5)',
+		'rgba(255, 0, 0, 0.5)',
+	]
 	assert.equal(actual, expected)
 })
 
