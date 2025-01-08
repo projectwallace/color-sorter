@@ -10,7 +10,7 @@ import {
 } from "colorjs.io/fn"
 
 // Register color spaces for parsing and converting
-ColorSpace.register(sRGB) // Can parse keywords and hex colors
+ColorSpace.register(sRGB) // Parses keywords and hex colors
 ColorSpace.register(P3)
 ColorSpace.register(HSL)
 ColorSpace.register(LCH)
@@ -32,12 +32,6 @@ ColorSpace.register(OKLCH)
 function numerify(value) {
 	if (typeof value === 'number' && Number.isFinite(value)) {
 		return value
-	}
-	if (Number.isNaN(value)) {
-		return 0
-	}
-	if (typeof value === 'object' && value !== null && 'raw' in value) {
-		return parseFloat(value.raw)
 	}
 	return 0
 }
