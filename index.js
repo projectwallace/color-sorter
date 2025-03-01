@@ -25,6 +25,10 @@ ColorSpace.register(OKLCH)
  */
 
 /**
+ * @typedef {NormalizedColor & { authored: string }} NormalizedColorWithAuthored
+ */
+
+/**
  * @param {string | number | {raw: string} | undefined | null} value
  * @returns {number}
  * @todo Make this faster based on usage heuristics
@@ -39,7 +43,7 @@ function numerify(value) {
 /**
  * Convert a CSS (string) color into a normalized object that can be used for comparison
  * @param {string} authored
- * @returns {NormalizedColor & { authored: string }}
+ * @returns {NormalizedColorWithAuthored}
  * @example convert('red')
  */
 export function convert(authored) {
@@ -71,8 +75,8 @@ export function convert(authored) {
 }
 
 /**
- * @param {ReturnType<typeof convert>} a
- * @param {ReturnType<typeof convert>} b
+ * @param {NormalizedColorWithAuthored} a
+ * @param {NormalizedColorWithAuthored} b
  * @returns {number}
  */
 export function compare(a, b) {
