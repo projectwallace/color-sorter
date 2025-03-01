@@ -1,6 +1,6 @@
 import { test } from 'uvu'
 import * as assert from 'uvu/assert'
-import { convert, sort, sortFn } from './index.js'
+import { convert, sort, sortFn, compare } from './index.js'
 
 test('it exposes a basic sort function', () => {
 	assert.is(typeof sort, 'function')
@@ -12,6 +12,10 @@ test('it exposes a convert function', () => {
 
 test('it exposes a sortFn', () => {
 	assert.is(typeof sortFn, 'function')
+})
+
+test('it exposes a compare function', () => {
+	assert.is(typeof compare, 'function')
 })
 
 test('the convert fn converts colors to an HSLA object', () => {
@@ -60,6 +64,20 @@ test('invalid colors return a default object', () => {
 		alpha: 1,
 		authored: 'rgb(NaN NaN NaN / 1)'
 	})
+})
+
+test('comparing two colors', () => {
+	const a = convert('red')
+	const b = convert('blue')
+	const actual = compare(a, b)
+	assert.ok(actual < 0)
+})
+
+test('comparing identical colors', () => {
+	const a = convert('red')
+	const b = convert('red')
+	const actual = compare(a, b)
+	assert.equal(actual, 0)
 })
 
 test('Colors are sorted by Hue', () => {

@@ -40,6 +40,7 @@ function numerify(value) {
  * Convert a CSS (string) color into a normalized object that can be used for comparison
  * @param {string} authored
  * @returns {NormalizedColor & { authored: string }}
+ * @example convert('red')
  */
 export function convert(authored) {
 	try {
@@ -70,52 +71,63 @@ export function convert(authored) {
 }
 
 /**
+ * @param {ReturnType<typeof convert>} a
+ * @param {ReturnType<typeof convert>} b
+ * @returns {number}
+ */
+export function compare(a, b) {
+	// Move grey-ish values to the back
+	if (
+		(a.saturation === 0 || b.saturation === 0) &&
+		a.saturation !== b.saturation
+	) {
+		return b.saturation - a.saturation
+	}
+
+	// Sort by hue (lowest first)
+	if (a.hue !== b.hue) {
+		return a.hue - b.hue
+	}
+
+	// Sort by saturation (highest first)
+	if (a.saturation !== b.saturation) {
+		return a.saturation - b.saturation
+	}
+
+	// Comparing gray values, light before dark
+	if (a.saturation === 0 && b.saturation === 0) {
+		if (a.lightness !== b.lightness) {
+			return b.lightness - a.lightness
+		}
+	}
+
+	// Sort by transparency, least transparent first
+	if (a.alpha === b.alpha) {
+		return a.authored.toLowerCase().localeCompare(b.authored.toLowerCase())
+	}
+
+	return b.alpha - a.alpha
+}
+
+/**
  * Function that sorts colors
  * @param {string} a
  * @param {string} b
  * @returns {number}
+ * @example ['red', 'yellow'].sort(sortFn)
  */
 export function sortFn(a, b) {
 	let colorA = convert(a)
 	let colorB = convert(b)
 
-	// Move grey-ish values to the back
-	if (
-		(colorA.saturation === 0 || colorB.saturation === 0) &&
-		colorA.saturation !== colorB.saturation
-	) {
-		return colorB.saturation - colorA.saturation
-	}
-
-	// Sort by hue (lowest first)
-	if (colorA.hue !== colorB.hue) {
-		return colorA.hue - colorB.hue
-	}
-
-	// Sort by saturation (highest first)
-	if (colorA.saturation !== colorB.saturation) {
-		return colorA.saturation - colorB.saturation
-	}
-
-	// Comparing gray values, light before dark
-	if (colorA.saturation === 0 && colorB.saturation === 0) {
-		if (colorA.lightness !== colorB.lightness) {
-			return colorB.lightness - colorA.lightness
-		}
-	}
-
-	// Sort by transparency, least transparent first
-	if (colorA.alpha === colorB.alpha) {
-		return colorA.authored.toLowerCase().localeCompare(colorB.authored.toLowerCase())
-	}
-
-	return colorB.alpha - colorA.alpha
+	return compare(colorA, colorB)
 }
 
 /**
  * Sort the `colors` array using `Array.sort()`, so beware that it changes the source input
  * @param {string[]} colors
  * @returns {string[]} sorted
+ * @example sort(['red', 'yellow'])
  */
 export function sort(colors) {
 	return colors.sort(sortFn)
