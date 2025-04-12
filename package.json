@@ -1,20 +1,19 @@
 {
   "name": "color-sorter",
-  "version": "6.2.0",
+  "version": "7.0.0-alpha.0",
   "description": "Sort colors in a visually pleasing way.",
   "homepage": "https://github.com/projectwallace/color-sorter",
   "repository": "projectwallace/color-sorter",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "type": "module",
-  "source": "index.js",
   "exports": {
     "types": "./dist/index.d.ts",
-    "require": "./dist/color-sorter.umd.cjs",
-    "default": "./dist/color-sorter.js"
+    "default": "./dist/index.js"
   },
   "types": "./dist/index.d.ts",
-  "main": "./dist/color-sorter.umd.cjs",
-  "module": "./dist/color-sorter.js",
-  "unpkg": "./dist/color-sorter.umd.cjs",
+  "main": "./dist/index.js",
   "scripts": {
     "test": "uvu",
     "build": "vite build",

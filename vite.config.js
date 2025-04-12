@@ -7,8 +7,7 @@ export default defineConfig({
 	build: {
 		lib: {
 			entry: resolve(__dirname, "index.js"),
-			name: "colorSorter",
-			fileName: "color-sorter",
+			formats: ['es']
 		},
 		rollupOptions: {
 			// make sure to externalize deps that shouldn't be bundled
