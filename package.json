@@ -10,10 +10,10 @@
   "type": "module",
   "exports": {
     "types": "./dist/index.d.ts",
-    "default": "./dist/index.js"
+    "default": "./dist/color-sorter.js"
   },
   "types": "./dist/index.d.ts",
-  "main": "./dist/index.js",
+  "main": "./dist/color-sorter.js",
   "scripts": {
     "test": "uvu",
     "build": "vite build",
