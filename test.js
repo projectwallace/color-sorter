@@ -66,6 +66,37 @@ test('invalid colors return a default object', () => {
 	})
 })
 
+test('converts `transparent` to 0% opacity black', () => {
+	const transparent = convert('transparent')
+	assert.equal(transparent, {
+		hue: 0,
+		saturation: 0,
+		lightness: 0,
+		alpha: 0,
+		authored: 'transparent'
+	})
+})
+
+test('converts `inherit` to 0% opacity black', () => {
+	assert.equal(convert('inherit'), {
+		hue: 0,
+		saturation: 0,
+		lightness: 0,
+		alpha: 0,
+		authored: 'inherit'
+	})
+})
+
+test('converts `currrentcolor` to 0% opacity black', () => {
+	assert.equal(convert('currentcolor'), {
+		hue: 0,
+		saturation: 0,
+		lightness: 0,
+		alpha: 0,
+		authored: 'currentcolor'
+	})
+})
+
 test('comparing two colors', () => {
 	const a = convert('red')
 	const b = convert('blue')
