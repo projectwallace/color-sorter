@@ -9,13 +9,13 @@
   },
   "type": "module",
   "exports": {
-    "types": "./dist/index.d.mts",
-    "default": "./dist/index.mjs"
+    "types": "./dist/index.d.ts",
+    "default": "./dist/index.js"
   },
-  "types": "./dist/index.d.mts",
-  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
   "scripts": {
-    "test": "uvu",
+    "test": "vitest run",
     "build": "tsdown",
     "check": "tsc --noEmit"
   },
@@ -43,8 +43,9 @@
   },
   "devDependencies": {
     "@codecov/rollup-plugin": "^1.9.1",
-    "c8": "^10.1.3",
+    "@vitest/coverage-v8": "^4.0.18",
+    "publint": "^0.3.18",
     "tsdown": "^0.21.0",
-    "uvu": "^0.5.6"
+    "vitest": "^4.0.18"
   }
 }

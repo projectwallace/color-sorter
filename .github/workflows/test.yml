@@ -10,6 +10,17 @@ on:
     branches: [main]
 
 jobs:
+  check:
+    name: Type check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: "npm"
+      - run: npm install --no-audit --no-fund --ignore-scripts
+      - run: npm run check
   unit:
     name: Unit tests
     runs-on: ubuntu-latest
@@ -31,18 +42,14 @@ jobs:
         with:
           cache: "npm"
       - run: npm install --no-audit --no-fund --ignore-scripts
-      - name: Check types
-        run: npm run check
       - name: Lint JS
         run: npx oxlint@latest -D perf
       - name: Build package
         run: npm run build
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-      - name: "Publint"
-        run: npx publint
       - name: Run tests
-        run: npx c8 --reporter=lcov npm test
+        run: npm test -- --coverage --coverage.reporter=lcov
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:

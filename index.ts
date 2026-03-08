@@ -16,24 +16,16 @@ ColorSpace.register(HSL)
 ColorSpace.register(LCH)
 ColorSpace.register(OKLCH)
 
-/**
- * @typedef NormalizedColor
- * @property {number} hue
- * @property {number} saturation
- * @property {number} lightness
- * @property {number} alpha
- */
+interface NormalizedColor {
+	hue: number
+	saturation: number
+	lightness: number
+	alpha: number
+}
 
-/**
- * @typedef {NormalizedColor & { authored: string }} NormalizedColorWithAuthored
- */
+type NormalizedColorWithAuthored = NormalizedColor & { authored: string }
 
-/**
- * @param {string | number | {raw: string} | undefined | null} value
- * @returns {number}
- * @todo Make this faster based on usage heuristics
- */
-function numerify(value) {
+function numerify(value: unknown): number {
 	if (typeof value === 'number' && Number.isFinite(value)) {
 		return value
 	}
@@ -42,11 +34,9 @@ function numerify(value) {
 
 /**
  * Convert a CSS (string) color into a normalized object that can be used for comparison
- * @param {string} authored
- * @returns {NormalizedColorWithAuthored}
  * @example convert('red')
  */
-export function convert(authored) {
+export function convert(authored: string): NormalizedColorWithAuthored {
 	try {
 		let parsed = parse(authored)
 		let converted = parsed.spaceId === 'hsl' ? parsed : convertColor(parsed, HSL)
@@ -74,12 +64,7 @@ export function convert(authored) {
 	}
 }
 
-/**
- * @param {NormalizedColorWithAuthored} a
- * @param {NormalizedColorWithAuthored} b
- * @returns {number}
- */
-export function compare(a, b) {
+export function compare(a: NormalizedColorWithAuthored, b: NormalizedColorWithAuthored): number {
 	// Move grey-ish values to the back
 	if (
 		(a.saturation === 0 || b.saturation === 0) &&
@@ -115,12 +100,9 @@ export function compare(a, b) {
 
 /**
  * Function that sorts colors
- * @param {string} a
- * @param {string} b
- * @returns {number}
  * @example ['red', 'yellow'].sort(sortFn)
  */
-export function sortFn(a, b) {
+export function sortFn(a: string, b: string): number {
 	let colorA = convert(a)
 	let colorB = convert(b)
 
@@ -129,10 +111,8 @@ export function sortFn(a, b) {
 
 /**
  * Sort the `colors` array using `Array.sort()`, so beware that it changes the source input
- * @param {string[]} colors
- * @returns {string[]} sorted
  * @example sort(['red', 'yellow'])
  */
-export function sort(colors) {
+export function sort(colors: string[]): string[] {
 	return colors.sort(sortFn)
 }
