@@ -15,7 +15,7 @@
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "scripts": {
-    "test": "vitest run",
+    "test": "vitest",
     "build": "tsdown",
     "check": "tsc --noEmit"
   },
@@ -39,13 +39,14 @@
     "url": "https://github.com/projectwallace/color-sorter/issues"
   },
   "dependencies": {
-    "colorjs.io": "^0.6.0-alpha.1"
+    "colorjs.io": "^0.6.1"
   },
   "devDependencies": {
     "@codecov/rollup-plugin": "^1.9.1",
     "@vitest/coverage-v8": "^4.0.18",
     "publint": "^0.3.18",
     "tsdown": "^0.21.0",
+    "typescript": "5.9.3",
     "vitest": "^4.0.18"
   }
 }

@@ -7,28 +7,21 @@ on:
   release:
     types: [created]
 
+permissions:
+  id-token: write # Required for OIDC
+  contents: read
+
 jobs:
-  build:
+  publish-npm:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          cache: "npm"
+          node-version: 22
+          registry-url: https://registry.npmjs.org/
+      - run: npm install -g npm@latest
       - run: npm install --ignore-scripts --no-audit --no-fund
       - run: npm test
-
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          cache: "npm"
-          registry-url: https://registry.npmjs.org/
-      - run: npm install --ignore-scripts --no-audit --no-fund
       - run: npm run build
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - run: npm publish --access public
