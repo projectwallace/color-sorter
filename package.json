@@ -1,52 +1,56 @@
 {
-  "name": "color-sorter",
-  "version": "7.0.0",
-  "description": "Sort colors in a visually pleasing way.",
-  "homepage": "https://github.com/projectwallace/color-sorter",
-  "repository": "projectwallace/color-sorter",
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "type": "module",
-  "exports": {
-    "types": "./dist/index.d.ts",
-    "default": "./dist/index.js"
-  },
-  "types": "./dist/index.d.ts",
-  "main": "./dist/index.js",
-  "scripts": {
-    "test": "vitest",
-    "build": "tsdown",
-    "check": "tsc --noEmit"
-  },
-  "files": [
-    "dist"
-  ],
-  "keywords": [
-    "css",
-    "color-sorting",
-    "color-sort",
-    "colors",
-    "statistics",
-    "stats",
-    "analytics",
-    "sort",
-    "order"
-  ],
-  "author": "Bart Veneman",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/projectwallace/color-sorter/issues"
-  },
-  "dependencies": {
-    "colorjs.io": "^0.6.1"
-  },
-  "devDependencies": {
-    "@codecov/rollup-plugin": "^1.9.1",
-    "@vitest/coverage-v8": "^4.0.18",
-    "publint": "^0.3.18",
-    "tsdown": "^0.21.0",
-    "typescript": "5.9.3",
-    "vitest": "^4.0.18"
-  }
+	"name": "color-sorter",
+	"version": "7.0.0",
+	"description": "Sort colors in a visually pleasing way.",
+	"keywords": [
+		"analytics",
+		"color-sort",
+		"color-sorting",
+		"colors",
+		"css",
+		"order",
+		"sort",
+		"statistics",
+		"stats"
+	],
+	"homepage": "https://github.com/projectwallace/color-sorter",
+	"bugs": {
+		"url": "https://github.com/projectwallace/color-sorter/issues"
+	},
+	"license": "MIT",
+	"author": "Bart Veneman",
+	"repository": "projectwallace/color-sorter",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		"types": "./dist/index.d.ts",
+		"default": "./dist/index.js"
+	},
+	"scripts": {
+		"test": "vitest",
+		"build": "tsdown",
+		"check": "tsc --noEmit",
+		"lint": "oxlint && oxfmt --check",
+		"format": "oxfmt"
+	},
+	"dependencies": {
+		"colorjs.io": "^0.6.1"
+	},
+	"devDependencies": {
+		"@codecov/rollup-plugin": "^1.9.1",
+		"@vitest/coverage-v8": "^4.0.18",
+		"oxfmt": "^0.36.0",
+		"oxlint": "^1.51.0",
+		"publint": "^0.3.18",
+		"tsdown": "^0.21.0",
+		"typescript": "5.9.3",
+		"vitest": "^4.0.18"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	}
 }

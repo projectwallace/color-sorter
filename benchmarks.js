@@ -1,62 +1,62 @@
 import { Bench } from "tinybench"
 import { withCodSpeed } from "@codspeed/tinybench-plugin"
-import { convert, sort } from './index.js'
+import { convert, sort } from "./index.js"
 
 let bench = withCodSpeed(new Bench())
 
-bench.add('real world sort example #1', () => {
+bench.add("real world sort example #1", () => {
 	sort([
-		'#4b4747',
-		'#d70c0b',
-		'#f00',
-		'#f22b24',
-		'#ff6930',
-		'#eb6c1e',
-		'#eb6d1e',
-		'#f57917',
-		'#ff8a0a',
-		'#f7a336',
-		'#feb95a',
-		'#eca920',
-		'#f1c15d',
-		'#f1c260',
-		'#ff0',
-		'#c8d05b',
-		'#ccd557',
-		'#d2ff52',
-		'#10ac47',
-		'#04a03b',
-		'#03fff3',
-		'#25bbc3',
-		'#38d7df',
-		'#15b8ec',
-		'#00adea',
-		'#8e34c9',
-		'#9a3dd1',
-		'#cd66f6',
-		'#fff',
-		'rgba(255,255,255,0.2)',
-		'rgba(255,255,255,0.07)',
-		'#f9f9f9',
-		'#f4f4f4',
-		'#f2f2f2',
-		'#e4e4e4',
-		'#ddd',
-		'#c0c0c0',
-		'#666',
-		'#4a4a4a',
-		'#1d1d1d',
-		'#0d0d0d',
-		'#000',
-		'rgba(0,0,0,0.8)',
-		'rgba(0,0,0,0.6)',
-		'rgba(0,0,0,0.4)',
-		'rgba(0,0,0,0.1)',
-		'rgba(0,0,0,0.05)'
+		"#4b4747",
+		"#d70c0b",
+		"#f00",
+		"#f22b24",
+		"#ff6930",
+		"#eb6c1e",
+		"#eb6d1e",
+		"#f57917",
+		"#ff8a0a",
+		"#f7a336",
+		"#feb95a",
+		"#eca920",
+		"#f1c15d",
+		"#f1c260",
+		"#ff0",
+		"#c8d05b",
+		"#ccd557",
+		"#d2ff52",
+		"#10ac47",
+		"#04a03b",
+		"#03fff3",
+		"#25bbc3",
+		"#38d7df",
+		"#15b8ec",
+		"#00adea",
+		"#8e34c9",
+		"#9a3dd1",
+		"#cd66f6",
+		"#fff",
+		"rgba(255,255,255,0.2)",
+		"rgba(255,255,255,0.07)",
+		"#f9f9f9",
+		"#f4f4f4",
+		"#f2f2f2",
+		"#e4e4e4",
+		"#ddd",
+		"#c0c0c0",
+		"#666",
+		"#4a4a4a",
+		"#1d1d1d",
+		"#0d0d0d",
+		"#000",
+		"rgba(0,0,0,0.8)",
+		"rgba(0,0,0,0.6)",
+		"rgba(0,0,0,0.4)",
+		"rgba(0,0,0,0.1)",
+		"rgba(0,0,0,0.05)",
 	])
 })
 
-bench.add('real world sort example #2 (nerdy.dev)', () => {
+bench.add("real world sort example #2 (nerdy.dev)", () => {
 	sort([
 		"rgb(66, 99, 235)",
 		"rgb(174, 62, 201)",
@@ -118,28 +118,28 @@ bench.add('real world sort example #2 (nerdy.dev)', () => {
 		"rgba(0, 0, 0, 0)",
 		"rgb(137, 41, 255)",
 		"rgb(230, 98, 230)",
-		"color(display-p3 0.001 0.015 0.03)"
+		"color(display-p3 0.001 0.015 0.03)",
 	])
 })
 
-bench.add('convert hex', () => convert('#f00'))
-bench.add('convert hex with alpha', () => convert('#f000'))
-bench.add('convert rgba()', () => convert('rgba(255,0,0,0.5)'))
-bench.add('convert rgba() (modern syntax)', () => convert('rgba(255 0 0 / 0.5)'))
-bench.add('convert rgb()', () => convert('rgb(255,0,0)'))
-bench.add('convert rgb() (modern syntax)', () => convert('rgb(255 0 0)'))
-bench.add('convert hsl()', () => convert('hsl(0,100%,50%)'))
-bench.add('convert hsl() (modern syntax)', () => convert('hsl(0 100% 50%)'))
-bench.add('convert hsla()', () => convert('hsla(0,100%,50%,0.5)'))
-bench.add('convert hsla() (modern syntax)', () => convert('hsla(0 100% 50% / 0.5)'))
-bench.add('convert lch()', () => convert('lch(52.2345% 72.2 56.2 / .5)'))
-bench.add('convert oklch()', () => convert('oklch(25% .148 81.72)'))
-bench.add('convert color()', () => convert('color(display-p3 1 0.5 0 / .5)'))
-bench.add('convert relative color()', () => convert('color(from green srgb r g b / 0.5)'))
-bench.add('convert named color', () => convert('red'))
-bench.add('convert transparent', () => convert('transparent'))
-bench.add('convert invalid color', () => convert('invalid'))
-bench.add('convert system color', () => convert('Highlight'))
+bench.add("convert hex", () => convert("#f00"))
+bench.add("convert hex with alpha", () => convert("#f000"))
+bench.add("convert rgba()", () => convert("rgba(255,0,0,0.5)"))
+bench.add("convert rgba() (modern syntax)", () => convert("rgba(255 0 0 / 0.5)"))
+bench.add("convert rgb()", () => convert("rgb(255,0,0)"))
+bench.add("convert rgb() (modern syntax)", () => convert("rgb(255 0 0)"))
+bench.add("convert hsl()", () => convert("hsl(0,100%,50%)"))
+bench.add("convert hsl() (modern syntax)", () => convert("hsl(0 100% 50%)"))
+bench.add("convert hsla()", () => convert("hsla(0,100%,50%,0.5)"))
+bench.add("convert hsla() (modern syntax)", () => convert("hsla(0 100% 50% / 0.5)"))
+bench.add("convert lch()", () => convert("lch(52.2345% 72.2 56.2 / .5)"))
+bench.add("convert oklch()", () => convert("oklch(25% .148 81.72)"))
+bench.add("convert color()", () => convert("color(display-p3 1 0.5 0 / .5)"))
+bench.add("convert relative color()", () => convert("color(from green srgb r g b / 0.5)"))
+bench.add("convert named color", () => convert("red"))
+bench.add("convert transparent", () => convert("transparent"))
+bench.add("convert invalid color", () => convert("invalid"))
+bench.add("convert system color", () => convert("Highlight"))
 
 await bench.warmup()
 await bench.run()
