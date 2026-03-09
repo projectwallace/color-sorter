@@ -10,7 +10,7 @@ export default defineConfig({
 	plugins: [
 		codecovRollupPlugin({
 			enableBundleAnalysis: process.env.CODECOV_TOKEN !== undefined,
-			bundleName: "formatCss",
+			bundleName: "colorSorter",
 			uploadToken: process.env.CODECOV_TOKEN,
 		}),
 	],
