@@ -7,14 +7,16 @@ ColorSpace.register(HSL)
 ColorSpace.register(LCH)
 ColorSpace.register(OKLCH)
 
-interface NormalizedColor {
+export type NormalizedColor = {
 	hue: number
 	saturation: number
 	lightness: number
 	alpha: number
 }
 
-type NormalizedColorWithAuthored = NormalizedColor & { authored: string }
+export type NormalizedColorWithAuthored = NormalizedColor & {
+	authored: string
+}
 
 function numerify(value: unknown): number {
 	if (typeof value === "number" && Number.isFinite(value)) {
