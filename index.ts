@@ -1,4 +1,4 @@
-import { parse, to as convertColor, ColorSpace, sRGB, P3, LCH, HSL, OKLCH } from "colorjs.io/fn"
+import { parse, to as convertColor, ColorSpace, sRGB, P3, LCH, HSL, OKLCH } from 'colorjs.io/fn'
 
 // Register color spaces for parsing and converting
 ColorSpace.register(sRGB) // Parses keywords and hex colors
@@ -19,7 +19,7 @@ export type NormalizedColorWithAuthored = NormalizedColor & {
 }
 
 function numerify(value: unknown): number {
-	if (typeof value === "number" && Number.isFinite(value)) {
+	if (typeof value === 'number' && Number.isFinite(value)) {
 		return value
 	}
 	return 0
@@ -32,7 +32,7 @@ function numerify(value: unknown): number {
 export function convert(authored: string): NormalizedColorWithAuthored {
 	try {
 		let parsed = parse(authored)
-		let converted = parsed.spaceId === "hsl" ? parsed : convertColor(parsed, HSL)
+		let converted = parsed.spaceId === 'hsl' ? parsed : convertColor(parsed, HSL)
 		let hsl = converted.coords
 		let hue = numerify(hsl[0])
 		let saturation = numerify(hsl[1])

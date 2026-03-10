@@ -11,8 +11,8 @@ This sorting algorithm is very opinionated and might not fit _your_ needs!
 ## Usage
 
 ```js
-import { sortFn, sort } from "color-sorter"
-var colors = ["#000", "red", "hsl(0, 10%, 60%)"]
+import { sortFn, sort } from 'color-sorter'
+var colors = ['#000', 'red', 'hsl(0, 10%, 60%)']
 var sorted = colors.sort(sortFn)
 // Or:
 // sorted = sort(colors)
