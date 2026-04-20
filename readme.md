@@ -1,7 +1,5 @@
 # color-sorter
 
-![Color sorter](https://repository-images.githubusercontent.com/142018423/f0333800-be49-11ea-8033-0e3df5daf1ab)
-
 Sort CSS colors by hue, then by saturation. Black-grey-white colors (colors with
 0% saturation) are shifted to the end. Fully transparent colors are placed at
 the _very_ end.
