@@ -288,7 +288,7 @@ describe('color group', () => {
 			['hsl(270 52% 45%)', 'violet'],
 		]
 		for (let [color, group] of colors) {
-			expect(color_group(convert(color))).toBe(group)
+			expect(color_group(convert(color!))).toBe(group)
 		}
 	})
 

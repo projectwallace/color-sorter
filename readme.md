@@ -56,14 +56,14 @@ const result = compare(red, green)
 Get the named group of a given color. Useful for making groups of colors.
 
 ```ts
-import { color_group } from 'color-sorter'
+import { color_group, convert } from 'color-sorter'
 const color = convert('rgb(255 0 0)')
 const group = color_group(color) // => 'red'
 ```
 
 ### `sort_fn`
 
-Calback sorting function that can be passed to a `.sort()` or `toSorted()`. Uses `compare` internally.
+Callback sorting function that can be passed to a `.sort()` or `toSorted()`. Uses `compare` internally.
 
 ```ts
 import { sort_fn } from 'color-sorter'
