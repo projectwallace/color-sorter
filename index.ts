@@ -71,7 +71,7 @@ function numerify(value: number | null | undefined): number {
 }
 
 /**
- * Convert a CSS (string) color into a normalized object that can be used for comparison
+ * Convert a CSS (string) color into a normalized HSL color that can be used for comparison
  * @example convert('red')
  */
 export function convert(authored: string): NormalizedColorWithAuthored {
@@ -82,7 +82,7 @@ export function convert(authored: string): NormalizedColorWithAuthored {
 			hue: 0,
 			saturation: 0,
 			lightness: 0,
-			alpha: 0,
+			alpha: 1,
 			authored,
 		}
 	}
@@ -144,10 +144,12 @@ export const COLOR_GROUP_NAMES = [
 	'gray',
 ] as const
 
-type ColorGroupName = (typeof COLOR_GROUP_NAMES)[number]
+export type ColorGroupName = (typeof COLOR_GROUP_NAMES)[number]
 
 /**
  * Get the color's group name, like "red", "green" or "gray"
+ *
+ * NB: heavily relies on magic numbers. All done by eye so will probably need tweaking from time to time.
  */
 function _color_group(color: NormalizedColor): ColorGroup {
 	let { hue, saturation, lightness } = color
@@ -210,6 +212,14 @@ function _color_group(color: NormalizedColor): ColorGroup {
 	return PINK
 }
 
+/**
+ * Get the group name of a color
+ * @example
+ * ```ts
+ * const color = convert('rgb(255 0 0)')
+ * const group = color_group(color) // => 'red'
+ * ```
+ */
 export function color_group(color: NormalizedColor): ColorGroupName {
 	return COLOR_GROUP_NAMES[_color_group(color)]
 }
@@ -229,7 +239,7 @@ let collator = new Intl.Collator('en-US', {
 	sensitivity: 'base',
 })
 
-export function sort_group_fn(
+function sort_group_fn(
 	a: NormalizedColorWithAuthored,
 	b: NormalizedColorWithAuthored,
 	group: (typeof COLOR_GROUPS)[number],
@@ -252,6 +262,9 @@ export function sort_group_fn(
 	return b.lightness - a.lightness
 }
 
+/**
+ * Compare two colors to determine which one is sorted first.
+ */
 export function compare(a: NormalizedColorWithAuthored, b: NormalizedColorWithAuthored): number {
 	let group_a = _color_group(a)
 	let group_b = _color_group(b)
@@ -272,12 +285,4 @@ export function sort_fn(a: string, b: string): number {
 	let color_b = convert(b)
 
 	return compare(color_a, color_b)
-}
-
-/**
- * Sort the `colors` array using `Array.sort()`, so beware that it changes the source input
- * @example sort(['red', 'yellow'])
- */
-export function sort(colors: string[]): string[] {
-	return colors.sort(sort_fn)
 }

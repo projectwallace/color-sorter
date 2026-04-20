@@ -1,11 +1,7 @@
 import { test, expect, describe } from 'vitest'
-import { convert, sort, sort_fn, compare } from './index.ts'
+import { convert, sort_fn, compare, color_group } from './index.ts'
 
 describe('public API', () => {
-	test('it exposes a basic sort function', () => {
-		expect(typeof sort).toBe('function')
-	})
-
 	test('it exposes a convert function', () => {
 		expect(typeof convert).toBe('function')
 	})
@@ -17,12 +13,17 @@ describe('public API', () => {
 	test('it exposes a compare function', () => {
 		expect(typeof compare).toBe('function')
 	})
+
+	test('it exposes a color_group function', () => {
+		expect(typeof color_group).toBe('function')
+	})
 })
 
 describe('convert', () => {
 	test('the convert fn converts colors to an HSLA object', () => {
 		const colors = [
 			'red',
+			'#f00',
 			'hsla(0, 100%, 50%, 1)',
 			'hsl(0, 100%, 50%)',
 			'rgb(255, 0, 0)',
@@ -82,22 +83,22 @@ describe('convert', () => {
 		})
 	})
 
-	test('converts `inherit` to 0% opacity black', () => {
+	test('converts `inherit` to black', () => {
 		expect(convert('inherit')).toEqual({
 			hue: 0,
 			saturation: 0,
 			lightness: 0,
-			alpha: 0,
+			alpha: 1,
 			authored: 'inherit',
 		})
 	})
 
-	test('converts `currrentcolor` to 0% opacity black', () => {
+	test('converts `currrentcolor` to black', () => {
 		expect(convert('currentcolor')).toEqual({
 			hue: 0,
 			saturation: 0,
 			lightness: 0,
-			alpha: 0,
+			alpha: 1,
 			authored: 'currentcolor',
 		})
 	})
@@ -119,7 +120,7 @@ describe('compare', () => {
 	})
 })
 
-describe('sort', () => {
+describe('sort_fn', () => {
 	test('Colors are sorted by Hue', () => {
 		const colors = [
 			'hsl(0, 100%, 50%)',
@@ -135,7 +136,7 @@ describe('sort', () => {
 			'hsl(100, 100%, 50%)',
 			'hsl(200, 100%, 50%)',
 		]
-		const actual = sort(colors)
+		const actual = colors.toSorted(sort_fn)
 
 		expect(actual).toEqual(expected)
 	})
@@ -153,7 +154,7 @@ describe('sort', () => {
 			'hsl(50, 20%, 50%)',
 			'hsl(50, 100%, 50%)',
 		]
-		const actual = sort(colors)
+		const actual = colors.toSorted(sort_fn)
 
 		expect(actual).toEqual(expected)
 	})
@@ -171,7 +172,7 @@ describe('sort', () => {
 			'hsl(0, 0%, 100%)', // White
 			'hsl(0, 0%, 0%)', // Black
 		]
-		const actual = sort(colors)
+		const actual = colors.toSorted(sort_fn)
 
 		expect(actual).toEqual(expected)
 	})
@@ -181,7 +182,7 @@ describe('sort', () => {
 		// equals 0
 		const colors = ['#000', '#fff', '#eee', '#555', '#222']
 		const expected = ['#fff', '#eee', '#555', '#222', '#000']
-		const actual = sort(colors)
+		const actual = colors.toSorted(sort_fn)
 
 		expect(actual).toEqual(expected)
 	})
@@ -199,21 +200,21 @@ describe('sort', () => {
 			'hsla(0, 0%, 10%, 0)',
 			'hsla(0, 0%, 0%, 0)',
 		]
-		const actual = sort(colors)
+		const actual = colors.toSorted(sort_fn)
 
 		expect(actual).toEqual(expected)
 	})
 
 	test('colors with identical transparency are sorted alphabetically', () => {
 		const colors = ['RGBA(255, 0, 0, 0.5)', 'rgba(255, 0, 0, 0.5)']
-		const actual = sort(colors)
+		const actual = colors.toSorted(sort_fn)
 		const expected = ['RGBA(255, 0, 0, 0.5)', 'rgba(255, 0, 0, 0.5)']
 		expect(actual).toEqual(expected)
 	})
 
 	test('Fully transparent colors are sorted along their opaque companions', () => {
 		const colors = ['rgba(255, 0, 0, 0)', 'hsla(0, 100%, 50%, 0.1)', 'red']
-		const actual = sort(colors)
+		const actual = colors.toSorted(sort_fn)
 		const expected = ['red', 'hsla(0, 100%, 50%, 0.1)', 'rgba(255, 0, 0, 0)']
 
 		expect(actual).toEqual(expected)
@@ -270,8 +271,131 @@ describe('sort', () => {
 			'rgba(0,0,0,0.05)',
 		]
 		const expected = [...colors]
-		const actual = sort(colors)
+		const actual = colors.toSorted(sort_fn)
 
 		expect(actual).toEqual(expected)
+	})
+})
+
+describe('color group', () => {
+	test('gets a single color group', () => {
+		const colors = [
+			['hsl(0, 100%, 50%)', 'red'],
+			['hsl(200, 100%, 50%)', 'blue'],
+			['hsl(50, 100%, 50%)', 'yellow'],
+			['hsl(10, 100%, 50%)', 'red'],
+			['hsl(100, 100%, 50%)', 'green'],
+			['hsl(270 52% 45%)', 'violet'],
+		]
+		for (let [color, group] of colors) {
+			expect(color_group(convert(color))).toBe(group)
+		}
+	})
+
+	test('allows grouping of colors', () => {
+		const colors = [
+			'#f22b24',
+			'#f00',
+			'#d70c0b',
+			'#feb95a',
+			'#f1c260',
+			'#f1c15d',
+			'#ff6930',
+			'#f7a336',
+			'#f57917',
+			'#eca920',
+			'#ff8a0a',
+			'#eb6c1e',
+			'#eb6d1e',
+			'#ccd557',
+			'#c8d05b',
+			'#ff0',
+			'#d2ff52',
+			'#10ac47',
+			'#04a03b',
+			'#38d7df',
+			'#03fff3',
+			'#25bbc3',
+			'#15b8ec',
+			'#00adea',
+			'#cd66f6',
+			'#9a3dd1',
+			'#8e34c9',
+			'#fff',
+			'rgba(255,255,255,0.2)',
+			'rgba(255,255,255,0.07)',
+			'#f9f9f9',
+			'#f4f4f4',
+			'#f2f2f2',
+			'#e4e4e4',
+			'#ddd',
+			'#c0c0c0',
+			'#666',
+			'#4a4a4a',
+			'#4b4747',
+			'#1d1d1d',
+			'#0d0d0d',
+			'#000',
+			'rgba(0,0,0,0.8)',
+		]
+		let authored = Object.entries(
+			colors.reduce(
+				(acc, color) => {
+					let converted = convert(color)
+					let group = color_group(converted)
+					if (!acc[group]) {
+						acc[group] = []
+					}
+					acc[group].push(converted.authored)
+					return acc
+				},
+				{} as Record<string, string[]>,
+			),
+		)
+		expect(authored).toEqual([
+			['red', ['#f22b24', '#f00', '#d70c0b']],
+			[
+				'orange',
+				[
+					'#feb95a',
+					'#f1c260',
+					'#f1c15d',
+					'#ff6930',
+					'#f7a336',
+					'#f57917',
+					'#eca920',
+					'#ff8a0a',
+					'#eb6c1e',
+					'#eb6d1e',
+				],
+			],
+			['brown', ['#ccd557', '#c8d05b']],
+			['yellow', ['#ff0']],
+			['green', ['#d2ff52', '#10ac47', '#04a03b']],
+			['cyan', ['#38d7df', '#03fff3', '#25bbc3']],
+			['blue', ['#15b8ec', '#00adea']],
+			['magenta', ['#cd66f6', '#9a3dd1', '#8e34c9']],
+			[
+				'gray',
+				[
+					'#fff',
+					'rgba(255,255,255,0.2)',
+					'rgba(255,255,255,0.07)',
+					'#f9f9f9',
+					'#f4f4f4',
+					'#f2f2f2',
+					'#e4e4e4',
+					'#ddd',
+					'#c0c0c0',
+					'#666',
+					'#4a4a4a',
+					'#4b4747',
+					'#1d1d1d',
+					'#0d0d0d',
+					'#000',
+					'rgba(0,0,0,0.8)',
+				],
+			],
+		])
 	})
 })

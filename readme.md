@@ -25,43 +25,59 @@ var sorted = colors.sort(sort_fn)
 // ]
 ```
 
-Want to try it out?
+[Example usage on Stackblitz](https://stackblitz.com/edit/color-sorter-example-esm?file=index.js&view=editor)
 
-- [Stackblitz example with ESM](https://stackblitz.com/edit/color-sorter-example-esm?file=index.js&view=editor)
-- [Stackblitz example with CommonJS](https://stackblitz.com/edit/color-sorter-example-cjs?file=index.js&view=editor)
+## API
 
-## Examples
+### `convert`
 
-These examples can be seen on [Project Wallace](https://projectwallace.com)
-where this package is used for sorting the colors.
+Convert any CSS color to a color that we can use for comparison. Returns black in case parsing fails.
 
-### CSS-Tricks
+```ts
+import { convert } from 'color-sorter'
+const color = convert('#f00')
+// => { hue: 0, saturation: 100, lightness: 50, alpha: 1, authored: '#f00' }
+```
 
-![CSS Tricks color sort example](/examples/css-tricks.png)
+### `compare`
 
-### Smashing Magazine
+Compare two converted colors to know where they must go while sorting.
 
-![Smashing Magazine color sort example](/examples/smashing-magazine.png)
+```ts
+import { convert, compare } from 'color-sorter'
+const red = convert('rgb(255 0 0)')
+const green = convert('#0f0')
+const result = compare(red, green)
+// => result < 0, making sure red ends up before green
+```
 
-### Bootstrap
+### `color_group`
 
-![Bootstrap color sort example](/examples/bootstrap.png)
+Get the named group of a given color. Useful for making groups of colors.
 
-### Zurb Foundation
+```ts
+import { color_group } from 'color-sorter'
+const color = convert('rgb(255 0 0)')
+const group = color_group(color) // => 'red'
+```
 
-![Zurb Foundation color sort example](/examples/foundation.png)
+### `sort_fn`
 
-### Project Wallace
+Calback sorting function that can be passed to a `.sort()` or `toSorted()`. Uses `compare` internally.
 
-![Project Wallace color sort example](/examples/project-wallace.png)
+```ts
+import { sort_fn } from 'color-sorter'
+const sorted = ['rebeccapurple', '#f00'].toSorted(sort_fn)
+//=> ['#f00', 'rebeccapurple']
+```
 
 ## Related projects
 
 - [CSS Analyzer](https://github.com/projectwallace/css-analyzer) - Generate
   analysis for a string of CSS
-- [Wallace](https://github.com/projectwallace/wallace-cli) - CLI tool for
+- [Wallace CLI](https://github.com/projectwallace/wallace-cli) - CLI tool for
   @projectwallace/css-analyzer
-- [Constyble](https://github.com/projectwallace/constyble) - A CSS complexity linter, based on css-analyzer. Don't let your CSS grow beyond the thresholds that you provide.
+- [CSS Design Tokens](https://github.com/projectwallace/css-design-tokens) - Create Design Tokens by going through CSS to find colors, font-sizes, gradients etcetera and turn them into a Design Tokens spec-compliant token format.
 
 ## License
 
