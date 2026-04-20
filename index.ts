@@ -153,7 +153,7 @@ export type ColorGroupName = (typeof COLOR_GROUP_NAMES)[number]
  */
 function _color_group(color: NormalizedColor): ColorGroup {
 	let { hue, saturation, lightness } = color
-	if (hue === null || saturation === null || saturation < 10 || lightness === null) {
+	if (saturation < 10) {
 		return GRAY
 	}
 
@@ -183,9 +183,6 @@ function _color_group(color: NormalizedColor): ColorGroup {
 		return YELLOW
 	}
 	if (hue < 164) {
-		if (saturation > 75 && lightness < 30 && hue < 52) {
-			return BROWN
-		}
 		return GREEN
 	}
 	if (hue < 194) {
@@ -234,7 +231,7 @@ const hue_gaps: Partial<Record<ColorGroup, number>> = {
 }
 const default_hue_gap = 24
 
-let collator = new Intl.Collator('en-US', {
+const collator = new Intl.Collator('en-US', {
 	caseFirst: 'upper',
 	sensitivity: 'base',
 })
@@ -242,24 +239,25 @@ let collator = new Intl.Collator('en-US', {
 function sort_group_fn(
 	a: NormalizedColorWithAuthored,
 	b: NormalizedColorWithAuthored,
-	group: (typeof COLOR_GROUPS)[number],
+	group: ColorGroup,
 ) {
 	const hue_gap = hue_gaps[group] ?? default_hue_gap
 
 	// Colors that are very similar in hue get sorted by lightness
 	if (Math.abs(a.hue - b.hue) < hue_gap) {
+		const diff = b.lightness - a.lightness
+		if (diff !== 0) {
+			return diff
+		}
+	} else if (a.lightness !== b.lightness) {
 		return b.lightness - a.lightness
 	}
 
-	if (a.lightness === b.lightness) {
-		// Sort by transparency, least transparent first
-		if (a.alpha === b.alpha) {
-			return collator.compare(a.authored, b.authored)
-		}
-
+	// Sort by transparency, least transparent first
+	if (a.alpha !== b.alpha) {
 		return b.alpha - a.alpha
 	}
-	return b.lightness - a.lightness
+	return collator.compare(a.authored, b.authored)
 }
 
 /**
