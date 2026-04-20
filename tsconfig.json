@@ -18,7 +18,7 @@
 		"allowImportingTsExtensions": true,
 
 		// Code runs in the DOM
-		"lib": ["ES2022", "DOM", "DOM.Iterable"]
+		"lib": ["ESNext", "DOM", "DOM.Iterable"]
 	},
 	"include": ["index.ts", "index.test.ts"],
 	"exclude": ["node_modules"]
