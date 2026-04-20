@@ -20,6 +20,6 @@
 		// Code runs in the DOM
 		"lib": ["ES2022", "DOM", "DOM.Iterable"]
 	},
-	"include": ["index.ts", "index.test.ts"],
+	"include": ["index.ts", "src/index.test.ts"],
 	"exclude": ["node_modules"]
 }

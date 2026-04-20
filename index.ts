@@ -1,11 +1,56 @@
-import { parse, to as convertColor, ColorSpace, sRGB, P3, LCH, HSL, OKLCH } from 'colorjs.io/fn'
+import {
+	tryColor,
+	ColorSpace,
+	XYZ_D65,
+	XYZ_D50,
+	XYZ_ABS_D65,
+	Lab_D65,
+	Lab,
+	LCH,
+	sRGB_Linear,
+	sRGB,
+	HSL,
+	HWB,
+	HSV,
+	P3_Linear,
+	P3,
+	A98RGB_Linear,
+	A98RGB,
+	ProPhoto_Linear,
+	ProPhoto,
+	REC_2020_Linear,
+	REC_2020,
+	OKLab,
+	OKLCH,
+	OKLrab,
+	to as convertColor,
+} from 'colorjs.io/fn'
 
 // Register color spaces for parsing and converting
+// TODO: According to the changelog we should be able to import
+// and register all spaces in one go but it doesn't seem to work
 ColorSpace.register(sRGB) // Parses keywords and hex colors
-ColorSpace.register(P3)
-ColorSpace.register(HSL)
+ColorSpace.register(XYZ_D65)
+ColorSpace.register(XYZ_D50)
+ColorSpace.register(XYZ_ABS_D65)
+ColorSpace.register(Lab_D65)
+ColorSpace.register(Lab)
 ColorSpace.register(LCH)
+ColorSpace.register(sRGB_Linear)
+ColorSpace.register(HSL)
+ColorSpace.register(HWB)
+ColorSpace.register(HSV)
+ColorSpace.register(P3_Linear)
+ColorSpace.register(P3)
+ColorSpace.register(A98RGB_Linear)
+ColorSpace.register(A98RGB)
+ColorSpace.register(ProPhoto_Linear)
+ColorSpace.register(ProPhoto)
+ColorSpace.register(REC_2020_Linear)
+ColorSpace.register(REC_2020)
+ColorSpace.register(OKLab)
 ColorSpace.register(OKLCH)
+ColorSpace.register(OKLrab)
 
 export type NormalizedColor = {
 	hue: number
@@ -30,23 +75,9 @@ function numerify(value: number | null | undefined): number {
  * @example convert('red')
  */
 export function convert(authored: string): NormalizedColorWithAuthored {
-	try {
-		let parsed = parse(authored)
-		let converted = parsed.spaceId === 'hsl' ? parsed : convertColor(parsed, HSL)
-		let hsl = converted.coords
-		let hue = numerify(hsl[0])
-		let saturation = numerify(hsl[1])
-		let lightness = numerify(hsl[2])
-		let alpha = numerify(converted.alpha)
+	let parsed = tryColor(authored)
 
-		return {
-			hue,
-			saturation,
-			lightness,
-			alpha,
-			authored,
-		}
-	} catch {
+	if (parsed === null) {
 		return {
 			hue: 0,
 			saturation: 0,
@@ -55,48 +86,192 @@ export function convert(authored: string): NormalizedColorWithAuthored {
 			authored,
 		}
 	}
+
+	let converted = parsed.space.id === 'hsl' ? parsed : convertColor(parsed, HSL)
+	let hsl = converted.coords
+	let hue = numerify(hsl[0])
+	let saturation = numerify(hsl[1])
+	let lightness = numerify(hsl[2])
+	let alpha = numerify(converted.alpha)
+
+	return {
+		hue,
+		saturation,
+		lightness,
+		alpha,
+		authored,
+	}
+}
+
+const RED = 0
+const ORANGE = 1
+const BROWN = 2
+const YELLOW = 3
+const GREEN = 4
+const CYAN = 5
+const BLUE = 6
+const VIOLET = 7
+const MAGENTA = 8
+const PINK = 9
+const GRAY = 10
+
+const COLOR_GROUPS = [
+	RED,
+	ORANGE,
+	BROWN,
+	YELLOW,
+	GREEN,
+	CYAN,
+	BLUE,
+	VIOLET,
+	MAGENTA,
+	PINK,
+	GRAY,
+] as const
+type ColorGroup = (typeof COLOR_GROUPS)[number]
+
+export const COLOR_GROUP_NAMES = [
+	'red',
+	'orange',
+	'brown',
+	'yellow',
+	'green',
+	'cyan',
+	'blue',
+	'violet',
+	'magenta',
+	'pink',
+	'gray',
+] as const
+
+type ColorGroupName = (typeof COLOR_GROUP_NAMES)[number]
+
+/**
+ * Get the color's group name, like "red", "green" or "gray"
+ */
+function _color_group(color: NormalizedColor): ColorGroup {
+	let { hue, saturation, lightness } = color
+	if (hue === null || saturation === null || saturation < 10 || lightness === null) {
+		return GRAY
+	}
+
+	if (hue < 15 || hue >= 345) {
+		return RED
+	}
+	if (hue < 47) {
+		if (lightness > 37 && saturation > 0.5) {
+			return ORANGE
+		}
+
+		if (saturation < 25 && lightness < 15) {
+			return GRAY
+		}
+		return BROWN
+	}
+	if (hue < 65) {
+		if (saturation < 25 && lightness < 15) {
+			return GRAY
+		}
+		if (saturation < 70 && lightness < 80) {
+			return BROWN
+		}
+		if (lightness < 30) {
+			return GREEN
+		}
+		return YELLOW
+	}
+	if (hue < 164) {
+		if (saturation > 75 && lightness < 30 && hue < 52) {
+			return BROWN
+		}
+		return GREEN
+	}
+	if (hue < 194) {
+		if (saturation < 20) {
+			return GRAY
+		}
+		return CYAN
+	}
+	if (hue < 241) {
+		if (saturation < 19) {
+			return GRAY
+		}
+		if (saturation > 55 && lightness > 59 && hue > 234) {
+			return VIOLET
+		}
+		return BLUE
+	}
+	if (hue < 271) {
+		return VIOLET
+	}
+	if (hue < 327) {
+		return MAGENTA
+	}
+	return PINK
+}
+
+export function color_group(color: NormalizedColor): ColorGroupName {
+	return COLOR_GROUP_NAMES[_color_group(color)]
+}
+
+// Allow bigger sub-groups for these colors
+const hue_gaps: Partial<Record<ColorGroup, number>> = {
+	[BLUE]: 48,
+	[GREEN]: 36,
+	// Red and gray are sorted by lightness, regardless of hue
+	[RED]: 0,
+	[GRAY]: 0,
+}
+const default_hue_gap = 24
+
+let collator = new Intl.Collator('en-US', {
+	caseFirst: 'upper',
+	sensitivity: 'base',
+})
+
+export function sort_group_fn(
+	a: NormalizedColorWithAuthored,
+	b: NormalizedColorWithAuthored,
+	group: (typeof COLOR_GROUPS)[number],
+) {
+	const hue_gap = hue_gaps[group] ?? default_hue_gap
+
+	// Colors that are very similar in hue get sorted by lightness
+	if (Math.abs(a.hue - b.hue) < hue_gap) {
+		return b.lightness - a.lightness
+	}
+
+	if (a.lightness === b.lightness) {
+		// Sort by transparency, least transparent first
+		if (a.alpha === b.alpha) {
+			return collator.compare(a.authored, b.authored)
+		}
+
+		return b.alpha - a.alpha
+	}
+	return b.lightness - a.lightness
 }
 
 export function compare(a: NormalizedColorWithAuthored, b: NormalizedColorWithAuthored): number {
-	// Move grey-ish values to the back
-	if ((a.saturation === 0 || b.saturation === 0) && a.saturation !== b.saturation) {
-		return b.saturation - a.saturation
+	let group_a = _color_group(a)
+	let group_b = _color_group(b)
+
+	if (group_a === group_b) {
+		return sort_group_fn(a, b, group_a)
 	}
 
-	// Sort by hue (lowest first)
-	if (a.hue !== b.hue) {
-		return a.hue - b.hue
-	}
-
-	// Sort by saturation (highest first)
-	if (a.saturation !== b.saturation) {
-		return a.saturation - b.saturation
-	}
-
-	// Comparing gray values, light before dark
-	if (a.saturation === 0 && b.saturation === 0) {
-		if (a.lightness !== b.lightness) {
-			return b.lightness - a.lightness
-		}
-	}
-
-	// Sort by transparency, least transparent first
-	if (a.alpha === b.alpha) {
-		return a.authored.toLowerCase().localeCompare(b.authored.toLowerCase())
-	}
-
-	return b.alpha - a.alpha
+	return group_a - group_b
 }
 
 /**
  * Function that sorts colors
- * @example ['red', 'yellow'].sort(sortFn)
+ * @example ['red', 'yellow'].sort(sort_fn)
  */
-export function sortFn(a: string, b: string): number {
-	let colorA = convert(a)
-	let colorB = convert(b)
+export function sort_fn(a: string, b: string): number {
+	let color_a = convert(a)
+	let color_b = convert(b)
 
-	return compare(colorA, colorB)
+	return compare(color_a, color_b)
 }
 
 /**
@@ -104,5 +279,5 @@ export function sortFn(a: string, b: string): number {
  * @example sort(['red', 'yellow'])
  */
 export function sort(colors: string[]): string[] {
-	return colors.sort(sortFn)
+	return colors.sort(sort_fn)
 }

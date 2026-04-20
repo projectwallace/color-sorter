@@ -1,5 +1,5 @@
 import { test, expect, describe } from 'vitest'
-import { convert, sort, sortFn, compare } from './index.ts'
+import { convert, sort, sort_fn, compare } from './index.ts'
 
 describe('public API', () => {
 	test('it exposes a basic sort function', () => {
@@ -10,8 +10,8 @@ describe('public API', () => {
 		expect(typeof convert).toBe('function')
 	})
 
-	test('it exposes a sortFn', () => {
-		expect(typeof sortFn).toBe('function')
+	test('it exposes a sort_fn', () => {
+		expect(typeof sort_fn).toBe('function')
 	})
 
 	test('it exposes a compare function', () => {
@@ -140,16 +140,16 @@ describe('sort', () => {
 		expect(actual).toEqual(expected)
 	})
 
-	test('Colors are sorted by Hue, then by saturation', () => {
+	test('Colors are sorted by Hue, then by lightness', () => {
 		const colors = [
+			'hsl(50, 20%, 50%)',
 			'hsl(0, 100%, 50%)',
 			'hsl(0, 50%, 50%)',
-			'hsl(50, 20%, 50%)',
 			'hsl(50, 100%, 50%)',
 		]
 		const expected = [
-			'hsl(0, 50%, 50%)',
 			'hsl(0, 100%, 50%)',
+			'hsl(0, 50%, 50%)',
 			'hsl(50, 20%, 50%)',
 			'hsl(50, 100%, 50%)',
 		]
@@ -221,34 +221,33 @@ describe('sort', () => {
 
 	test('smoke test', () => {
 		const colors = [
-			'#4b4747',
+			'#f22b24',
 			'#f00',
 			'#d70c0b',
-			'#f22b24',
+			'#feb95a',
+			'#f1c260',
+			'#f1c15d',
 			'#ff6930',
+			'#f7a336',
+			'#f57917',
+			'#eca920',
+			'#ff8a0a',
 			'#eb6c1e',
 			'#eb6d1e',
-			'#f57917',
-			'#ff8a0a',
-			'#f7a336',
-			'#feb95a',
-			'#eca920',
-			'#f1c15d',
-			'#f1c260',
-			'#ff0',
-			'#c8d05b',
 			'#ccd557',
+			'#c8d05b',
+			'#ff0',
 			'#d2ff52',
 			'#10ac47',
 			'#04a03b',
-			'#03fff3',
 			'#38d7df',
+			'#03fff3',
 			'#25bbc3',
 			'#15b8ec',
 			'#00adea',
-			'#8e34c9',
-			'#9a3dd1',
 			'#cd66f6',
+			'#9a3dd1',
+			'#8e34c9',
 			'#fff',
 			'rgba(255,255,255,0.2)',
 			'rgba(255,255,255,0.07)',
@@ -260,6 +259,7 @@ describe('sort', () => {
 			'#c0c0c0',
 			'#666',
 			'#4a4a4a',
+			'#4b4747',
 			'#1d1d1d',
 			'#0d0d0d',
 			'#000',
