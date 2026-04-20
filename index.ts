@@ -18,7 +18,7 @@ export type NormalizedColorWithAuthored = NormalizedColor & {
 	authored: string
 }
 
-function numerify(value: unknown): number {
+function numerify(value: number | null | undefined): number {
 	if (typeof value === 'number' && Number.isFinite(value)) {
 		return value
 	}
