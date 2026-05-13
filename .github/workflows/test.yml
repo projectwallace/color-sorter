@@ -1,6 +1,3 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
 name: Tests
 
 on:
@@ -9,21 +6,25 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
   test:
     name: Unit tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
       - name: Use Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
-          cache: 'npm'
-          node-version: 22
-      - run: npm ci --ignore-scripts --no-audit --no-fund
-      - run: npm test
+          cache: 'pnpm'
+          node-version: 24
+      - run: pnpm install --ignore-scripts
+      - run: pnpm test
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v6.0.0
+        uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v6
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
@@ -31,27 +32,29 @@ jobs:
     name: Check types
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
       - name: Use Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
-          cache: 'npm'
-          node-version: 22
-      - run: npm ci --ignore-scripts --no-audit --no-fund
-      - run: npm run check
+          cache: 'pnpm'
+          node-version: 24
+      - run: pnpm install --ignore-scripts
+      - run: pnpm run check
 
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
       - name: Use Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
-          cache: 'npm'
-          node-version: 22
-      - run: npm ci --ignore-scripts --no-audit --no-fund
-      - run: npm run build
+          cache: 'pnpm'
+          node-version: 24
+      - run: pnpm install --ignore-scripts
+      - run: pnpm run build
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
@@ -59,25 +62,25 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
       - name: Use Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
-          cache: 'npm'
-          node-version: 22
-      - run: npm ci --ignore-scripts --no-audit --no-fund
-      - run: npm run lint
+          cache: 'pnpm'
+          node-version: 24
+      - run: pnpm install --ignore-scripts
+      - run: pnpm run lint
 
   npm-audit:
     name: Audit packages
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
       - name: Use Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
-          cache: 'npm'
-          node-version: 22
-      - run: npm audit --audit-level=high
+          cache: 'pnpm'
+          node-version: 24
+      - run: pnpm audit --audit-level=high
