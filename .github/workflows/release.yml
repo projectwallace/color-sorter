@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org/
-      - run: pnpm install --ignore-scripts --no-audit --no-fund
+      - run: pnpm install --ignore-scripts
       - name: Bump version from release tag
         run: |
           VERSION=${GITHUB_REF_NAME#v}

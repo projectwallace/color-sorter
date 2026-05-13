@@ -21,7 +21,7 @@ jobs:
         with:
           cache: 'pnpm'
           node-version: 24
-      - run: pnpm install --ignore-scripts --no-audit --no-fund
+      - run: pnpm install --ignore-scripts
       - run: pnpm test
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v6
@@ -39,7 +39,7 @@ jobs:
         with:
           cache: 'pnpm'
           node-version: 24
-      - run: pnpm install --ignore-scripts --no-audit --no-fund
+      - run: pnpm install --ignore-scripts
       - run: pnpm run check
 
   build:
@@ -53,7 +53,7 @@ jobs:
         with:
           cache: 'pnpm'
           node-version: 24
-      - run: pnpm install --ignore-scripts --no-audit --no-fund
+      - run: pnpm install --ignore-scripts
       - run: pnpm run build
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
@@ -69,7 +69,7 @@ jobs:
         with:
           cache: 'pnpm'
           node-version: 24
-      - run: pnpm install --ignore-scripts --no-audit --no-fund
+      - run: pnpm install --ignore-scripts
       - run: pnpm run lint
 
   npm-audit:
