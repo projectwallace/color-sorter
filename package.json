@@ -38,21 +38,21 @@
 		"test": "vitest",
 		"build": "tsdown",
 		"check": "tsc --noEmit",
-		"lint": "oxlint && oxfmt --check",
+		"lint": "oxlint; oxfmt --check",
 		"format": "oxfmt"
 	},
 	"dependencies": {
-		"colorjs.io": "^0.6.1"
+		"colorjs.io": "~0.7.1"
 	},
 	"devDependencies": {
-		"@vitest/coverage-v8": "^4.1.4",
+		"@vitest/coverage-v8": "^4.1.10",
 		"oxfmt": "^0.57.0",
-		"oxlint": "^1.60.0",
-		"publint": "^0.3.18",
-		"tsdown": "^0.22.0",
+		"oxlint": "^1.76.0",
+		"publint": "^0.3.22",
+		"tsdown": "^0.22.14",
 		"typescript": "6.0.3",
 		"vite": "^8.2.0",
-		"vitest": "^4.1.4"
+		"vitest": "^4.1.10"
 	},
 	"engines": {
 		"node": ">=18.0.0"
