@@ -14,6 +14,11 @@ import names from '@colordx/core/plugins/names'
 // syntax, which @colordx/core doesn't support yet (colordx.dev roadmap).
 extend([lab, lch, hwb, hsv, p3, rec2020, a98rgb, prophoto, names])
 
+// High enough to preserve near-full float precision, since `compare()`
+// relies on tiny lightness differences to break ties before falling
+// back to alphabetical sorting.
+const HSL_PRECISION = 15
+
 export type NormalizedColor = {
 	hue: number
 	saturation: number
@@ -49,7 +54,7 @@ export function convert(authored: string): NormalizedColorWithAuthored {
 		}
 	}
 
-	let hsl = color.toHsl(15)
+	let hsl = color.toHsl(HSL_PRECISION)
 
 	return {
 		hue: numerify(hsl.h),
