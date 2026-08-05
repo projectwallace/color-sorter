@@ -42,7 +42,7 @@
 		"format": "oxfmt"
 	},
 	"dependencies": {
-		"colorjs.io": "~0.7.1"
+		"@colordx/core": "^5.5.0"
 	},
 	"devDependencies": {
 		"@vitest/coverage-v8": "^4.1.10",
