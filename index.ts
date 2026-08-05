@@ -1,56 +1,23 @@
-import {
-	tryColor,
-	ColorSpace,
-	XYZ_D65,
-	XYZ_D50,
-	XYZ_ABS_D65,
-	Lab_D65,
-	Lab,
-	LCH,
-	sRGB_Linear,
-	sRGB,
-	HSL,
-	HWB,
-	HSV,
-	P3_Linear,
-	P3,
-	A98RGB_Linear,
-	A98RGB,
-	ProPhoto_Linear,
-	ProPhoto,
-	REC_2020_Linear,
-	REC_2020,
-	OKLab,
-	OKLCH,
-	OKLrab,
-	to as convertColor,
-} from 'colorjs.io/fn'
+import { colordx, extend } from '@colordx/core'
+import lab from '@colordx/core/plugins/lab'
+import lch from '@colordx/core/plugins/lch'
+import hwb from '@colordx/core/plugins/hwb'
+import hsv from '@colordx/core/plugins/hsv'
+import p3 from '@colordx/core/plugins/p3'
+import rec2020 from '@colordx/core/plugins/rec2020'
+import a98rgb from '@colordx/core/plugins/a98rgb'
+import prophoto from '@colordx/core/plugins/prophoto'
+import names from '@colordx/core/plugins/names'
 
-// Register color spaces for parsing and converting
-// TODO: According to the changelog we should be able to import
-// and register all spaces in one go but it doesn't seem to work
-ColorSpace.register(sRGB) // Parses keywords and hex colors
-ColorSpace.register(XYZ_D65)
-ColorSpace.register(XYZ_D50)
-ColorSpace.register(XYZ_ABS_D65)
-ColorSpace.register(Lab_D65)
-ColorSpace.register(Lab)
-ColorSpace.register(LCH)
-ColorSpace.register(sRGB_Linear)
-ColorSpace.register(HSL)
-ColorSpace.register(HWB)
-ColorSpace.register(HSV)
-ColorSpace.register(P3_Linear)
-ColorSpace.register(P3)
-ColorSpace.register(A98RGB_Linear)
-ColorSpace.register(A98RGB)
-ColorSpace.register(ProPhoto_Linear)
-ColorSpace.register(ProPhoto)
-ColorSpace.register(REC_2020_Linear)
-ColorSpace.register(REC_2020)
-ColorSpace.register(OKLab)
-ColorSpace.register(OKLCH)
-ColorSpace.register(OKLrab)
+// Register color spaces for parsing and converting.
+// Not registered: `color(srgb ...)` / `color(srgb-linear ...)` function
+// syntax, which @colordx/core doesn't support yet (colordx.dev roadmap).
+extend([lab, lch, hwb, hsv, p3, rec2020, a98rgb, prophoto, names])
+
+// High enough to preserve near-full float precision, since `compare()`
+// relies on tiny lightness differences to break ties before falling
+// back to alphabetical sorting.
+const HSL_PRECISION = 15
 
 export type NormalizedColor = {
 	hue: number
@@ -75,9 +42,9 @@ function numerify(value: number | null | undefined): number {
  * @example convert('red')
  */
 export function convert(authored: string): NormalizedColorWithAuthored {
-	let parsed = tryColor(authored)
+	let color = colordx(authored)
 
-	if (parsed === null) {
+	if (!color.isValid()) {
 		return {
 			hue: 0,
 			saturation: 0,
@@ -87,18 +54,13 @@ export function convert(authored: string): NormalizedColorWithAuthored {
 		}
 	}
 
-	let converted = parsed.space.id === 'hsl' ? parsed : convertColor(parsed, HSL)
-	let hsl = converted.coords
-	let hue = numerify(hsl[0])
-	let saturation = numerify(hsl[1])
-	let lightness = numerify(hsl[2])
-	let alpha = numerify(converted.alpha)
+	let hsl = color.toHsl(HSL_PRECISION)
 
 	return {
-		hue,
-		saturation,
-		lightness,
-		alpha,
+		hue: numerify(hsl.h),
+		saturation: numerify(hsl.s),
+		lightness: numerify(hsl.l),
+		alpha: numerify(hsl.alpha),
 		authored,
 	}
 }

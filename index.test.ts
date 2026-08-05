@@ -51,6 +51,35 @@ describe('convert', () => {
 		}
 	})
 
+	// All of these are equivalent to `red` (#ff0000)
+	const wide_gamut_colors = [
+		'lab(54.2905414047 80.8049283205 69.8909647686)',
+		'lch(54.2905414047 106.8371817167 40.8576564524)',
+		'hwb(0 0% 0%)',
+		'color(display-p3 0.9174875573 0.2002868079 0.1385605911)',
+		'color(a98-rgb 0.8585916023 0 0)',
+		'color(prophoto-rgb 0.7022480752 0.275720531 0.1035476647)',
+		'color(rec2020 0.7919771358 0.2309756849 0.0737614751)',
+	]
+	test.each(wide_gamut_colors)(
+		'the convert fn parses wide-gamut and CIE color spaces: %s',
+		(color) => {
+			let converted = convert(color)
+			let hue_distance = Math.min(converted.hue, 360 - converted.hue)
+			expect(hue_distance, `Failed hue for '${color}', got ${converted.hue}`).toBeLessThan(0.01)
+			expect(
+				converted.saturation,
+				`Failed saturation for '${color}', got ${converted.saturation}`,
+			).toBeGreaterThan(99.9)
+			expect(
+				converted.lightness,
+				`Failed lightness for '${color}', got ${converted.lightness}`,
+			).toBeCloseTo(50, 1)
+			expect(converted.alpha).toBe(1)
+			expect(converted.authored).toBe(color)
+		},
+	)
+
 	const invalid_colors = ['hsl(0, 0, 0)', 'rgb(0 0 0 1)', 'rgb(a, b, c, 1)']
 	test.each(invalid_colors)(`invalid colors return a default object: %s`, (color) => {
 		expect(convert(color)).toEqual({
