@@ -42,17 +42,17 @@
 		"format": "oxfmt"
 	},
 	"dependencies": {
-		"@colordx/core": "^5.5.0"
+		"@colordx/core": "^6.2.0"
 	},
 	"devDependencies": {
-		"@vitest/coverage-v8": "^4.1.10",
-		"oxfmt": "^0.60.0",
+		"@vitest/coverage-v8": "^5.0.0",
+		"oxfmt": "^0.66.0",
 		"oxlint": "^1.76.0",
 		"publint": "^0.3.22",
-		"tsdown": "^0.22.14",
+		"tsdown": "^0.23.0",
 		"typescript": "7.0.2",
 		"vite": "^8.2.0",
-		"vitest": "^4.1.10"
+		"vitest": "^5.0.0"
 	},
 	"engines": {
 		"node": ">=18.0.0"
