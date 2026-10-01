@@ -42,11 +42,11 @@
 		"format": "oxfmt"
 	},
 	"dependencies": {
-		"@colordx/core": "^6.2.0"
+		"@colordx/core": "^7.0.0"
 	},
 	"devDependencies": {
 		"@vitest/coverage-v8": "^5.0.0",
-		"oxfmt": "^0.66.0",
+		"oxfmt": "^0.70.0",
 		"oxlint": "^1.76.0",
 		"publint": "^0.3.22",
 		"tsdown": "^0.23.0",
