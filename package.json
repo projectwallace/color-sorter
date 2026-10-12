@@ -1,61 +1,61 @@
 {
-  "name": "color-sorter",
-  "version": "8.0.2",
-  "description": "Sort colors in a visually pleasing way.",
-  "keywords": [
-    "analytics",
-    "color-sort",
-    "color-sorting",
-    "colors",
-    "css",
-    "order",
-    "sort",
-    "statistics",
-    "stats"
-  ],
-  "homepage": "https://github.com/projectwallace/color-sorter",
-  "bugs": {
-    "url": "https://github.com/projectwallace/color-sorter/issues"
-  },
-  "license": "MIT",
-  "author": "Bart Veneman",
-  "repository": "projectwallace/color-sorter",
-  "files": [
-    "dist"
-  ],
-  "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    "types": "./dist/index.d.ts",
-    "default": "./dist/index.js"
-  },
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
-  },
-  "scripts": {
-    "test": "vitest",
-    "build": "tsdown",
-    "check": "tsc --noEmit",
-    "lint": "oxlint; oxfmt --check",
-    "format": "oxfmt"
-  },
-  "dependencies": {
-    "@colordx/core": "^6.7.0"
-  },
-  "devDependencies": {
-    "@vitest/coverage-v8": "^5.0.3",
-    "oxfmt": "^0.66.0",
-    "oxlint": "^1.87.0",
-    "publint": "^0.3.25",
-    "tsdown": "^0.23.1",
-    "typescript": "7.0.2",
-    "vite": "^8.3.4",
-    "vitest": "^5.0.3"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "packageManager": "pnpm@11.1.1"
+	"name": "color-sorter",
+	"version": "8.0.2",
+	"description": "Sort colors in a visually pleasing way.",
+	"keywords": [
+		"analytics",
+		"color-sort",
+		"color-sorting",
+		"colors",
+		"css",
+		"order",
+		"sort",
+		"statistics",
+		"stats"
+	],
+	"homepage": "https://github.com/projectwallace/color-sorter",
+	"bugs": {
+		"url": "https://github.com/projectwallace/color-sorter/issues"
+	},
+	"license": "MIT",
+	"author": "Bart Veneman",
+	"repository": "projectwallace/color-sorter",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		"types": "./dist/index.d.ts",
+		"default": "./dist/index.js"
+	},
+	"publishConfig": {
+		"access": "public",
+		"provenance": true
+	},
+	"scripts": {
+		"test": "vitest",
+		"build": "tsdown",
+		"check": "tsc --noEmit",
+		"lint": "oxlint; oxfmt --check",
+		"format": "oxfmt"
+	},
+	"dependencies": {
+		"@colordx/core": "^6.7.0"
+	},
+	"devDependencies": {
+		"@vitest/coverage-v8": "^5.0.3",
+		"oxfmt": "^0.66.0",
+		"oxlint": "^1.87.0",
+		"publint": "^0.3.25",
+		"tsdown": "^0.23.1",
+		"typescript": "7.0.2",
+		"vite": "^8.3.4",
+		"vitest": "^5.0.3"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"packageManager": "pnpm@11.1.1"
 }
