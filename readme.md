@@ -9,7 +9,7 @@ This sorting algorithm is very opinionated and might not fit _your_ needs!
 ## Usage
 
 ```js
-import { sort_fn, sort } from 'color-sorter'
+import { sort_fn, sort } from '@projectwallace/color-sorter'
 var colors = ['#000', 'red', 'hsl(0, 10%, 60%)']
 var sorted = colors.sort(sort_fn)
 // Or:
@@ -23,8 +23,6 @@ var sorted = colors.sort(sort_fn)
 // ]
 ```
 
-[Example usage on Stackblitz](https://stackblitz.com/edit/color-sorter-example-esm?file=index.js&view=editor)
-
 ## API
 
 ### `convert`
@@ -32,7 +30,7 @@ var sorted = colors.sort(sort_fn)
 Convert any CSS color to a color that we can use for comparison. Returns black in case parsing fails.
 
 ```ts
-import { convert } from 'color-sorter'
+import { convert } from '@projectwallace/color-sorter'
 const color = convert('#f00')
 // => { hue: 0, saturation: 100, lightness: 50, alpha: 1, authored: '#f00' }
 ```
@@ -42,7 +40,7 @@ const color = convert('#f00')
 Compare two converted colors to know where they must go while sorting.
 
 ```ts
-import { convert, compare } from 'color-sorter'
+import { convert, compare } from '@projectwallace/color-sorter'
 const red = convert('rgb(255 0 0)')
 const green = convert('#0f0')
 const result = compare(red, green)
@@ -54,7 +52,7 @@ const result = compare(red, green)
 Get the named group of a given color. Useful for making groups of colors.
 
 ```ts
-import { color_group, convert } from 'color-sorter'
+import { color_group, convert } from '@projectwallace/color-sorter'
 const color = convert('rgb(255 0 0)')
 const group = color_group(color) // => 'red'
 ```
@@ -64,10 +62,14 @@ const group = color_group(color) // => 'red'
 Callback sorting function that can be passed to a `.sort()` or `toSorted()`. Uses `compare` internally.
 
 ```ts
-import { sort_fn } from 'color-sorter'
+import { sort_fn } from '@projectwallace/color-sorter'
 const sorted = ['rebeccapurple', '#f00'].toSorted(sort_fn)
 //=> ['#f00', 'rebeccapurple']
 ```
+
+## Project rename
+
+Prior to v9 this project was published as `color-sorter`. From v9 onwards it is published as `@projectwallace/color-sorter`.
 
 ## Related projects
 

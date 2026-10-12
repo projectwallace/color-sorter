@@ -1,5 +1,5 @@
 {
-	"name": "color-sorter",
+	"name": "@projectwallace/color-sorter",
 	"version": "8.0.3",
 	"description": "Sort colors in a visually pleasing way.",
 	"keywords": [
