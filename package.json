@@ -36,6 +36,7 @@
 	},
 	"scripts": {
 		"test": "vitest",
+		"test:coverage": "vitest run --coverage",
 		"build": "tsdown",
 		"check": "tsc --noEmit",
 		"lint": "oxlint; oxfmt --check",
