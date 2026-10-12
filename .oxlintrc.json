@@ -1,0 +1,6 @@
+{
+	"extends": ["./node_modules/@projectwallace/preset-oxlint/index.json"],
+	"rules": {
+		"vitest/no-conditional-in-test": "off"
+	}
+}
