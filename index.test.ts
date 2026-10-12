@@ -428,3 +428,37 @@ describe('color group', () => {
 		])
 	})
 })
+
+describe('_color_group branch coverage', () => {
+	test('low saturation, low lightness in the orange hue range is gray', () => {
+		expect(color_group(convert('hsl(30, 20%, 10%)'))).toBe('gray')
+	})
+
+	test('mid saturation, low lightness in the orange hue range is brown', () => {
+		expect(color_group(convert('hsl(30, 50%, 20%)'))).toBe('brown')
+	})
+
+	test('low saturation, low lightness in the yellow hue range is gray', () => {
+		expect(color_group(convert('hsl(55, 20%, 10%)'))).toBe('gray')
+	})
+
+	test('high saturation, low lightness in the yellow hue range is green', () => {
+		expect(color_group(convert('hsl(55, 80%, 20%)'))).toBe('green')
+	})
+
+	test('low saturation in the cyan hue range is gray', () => {
+		expect(color_group(convert('hsl(180, 15%, 50%)'))).toBe('gray')
+	})
+
+	test('low saturation in the blue hue range is gray', () => {
+		expect(color_group(convert('hsl(210, 15%, 50%)'))).toBe('gray')
+	})
+
+	test('high saturation and lightness at the edge of the blue hue range is violet', () => {
+		expect(color_group(convert('hsl(238, 60%, 65%)'))).toBe('violet')
+	})
+
+	test('hue at the top of the pink range is pink', () => {
+		expect(color_group(convert('hsl(330, 50%, 50%)'))).toBe('pink')
+	})
+})

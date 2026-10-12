@@ -30,13 +30,6 @@ export type NormalizedColorWithAuthored = NormalizedColor & {
 	authored: string
 }
 
-function numerify(value: number | null | undefined): number {
-	if (typeof value === 'number' && Number.isFinite(value)) {
-		return value
-	}
-	return 0
-}
-
 /**
  * Convert a CSS (string) color into a normalized HSL color that can be used for comparison
  * @example convert('red')
@@ -57,10 +50,10 @@ export function convert(authored: string): NormalizedColorWithAuthored {
 	let hsl = color.toHsl(HSL_PRECISION)
 
 	return {
-		hue: numerify(hsl.h),
-		saturation: numerify(hsl.s),
-		lightness: numerify(hsl.l),
-		alpha: numerify(hsl.alpha),
+		hue: hsl.h,
+		saturation: hsl.s,
+		lightness: hsl.l,
+		alpha: hsl.alpha,
 		authored,
 	}
 }
