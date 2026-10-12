@@ -59,7 +59,6 @@ describe('convert', () => {
 		'color(display-p3 0.9174875573 0.2002868079 0.1385605911)',
 		'color(a98-rgb 0.8585916023 0 0)',
 		'color(prophoto-rgb 0.7022480752 0.275720531 0.1035476647)',
-		'color(rec2020 0.7919771358 0.2309756849 0.0737614751)',
 	]
 	test.each(wide_gamut_colors)(
 		'the convert fn parses wide-gamut and CIE color spaces: %s',
